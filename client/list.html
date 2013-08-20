@@ -1,0 +1,148 @@
+<template name='lists'>
+	<div class="row-fluid">
+		<div class='navbar'>
+			<div class='navbar-inner'>
+				<ul class="nav">
+					<li>
+						{{{control_button this.addButton.control_class 'success' 'plus' '' this.addButton.title}}}
+						{{#if this.addButton.label}}
+						<div class='control-button-text'>{{this.addButton.label}}</div>
+						{{/if}}
+					</li>
+					<li class="divider-vertical"></li>
+					<li>
+						{{{control_button this.purgeButton.control_class 'danger' 'remove' '' this.purgeButton.title}}}
+						{{#if this.purgeButton.label}}
+						<div class='control-button-text'>{{this.purgeButton.label}}</div>
+						{{/if}}
+					</li>
+				</ul>
+				<form class="navbar-search pull-right">
+					<input type="text" class="search-query {{this.search.name}}-search-query" placeholder="Search"/>
+					<div class='reset hide {{this.search.name}}-search'></div>
+				</form>
+				<button id='{{this.title}}Help' class='btn btn-warning pull-right help-button'>Help</button>
+			</div>
+		</div>
+		<table class="table list-table">
+			<thead>
+				<tr>
+					{{listColumnHeaders this}}
+					<th class='span3'></th>
+				</tr>
+			</thead>
+			<tbody>		
+				{{#each lists}}
+					{{#isolate}}
+					{{{listRow}}}
+					{{/isolate}}
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>
+
+<template name="_listColumnHeaders">
+	{{#each columnHeaders}}
+		<th class='span3'>{{this}}</th>
+	{{/each}}
+</template>
+
+<template name="_listRowColumn">
+	<td class='span3'>
+		<!-- A list row column -->
+		<span>{{this}}</span>
+	</td>
+</template>
+
+<template name="_listRow">
+	<tr class='{{row_css_class}} {{selected}} disabled_{{disabled}}'>
+		{{#each listFields}}
+			{{listRowColumn this ../this}}
+		{{/each}}
+		<td class="span3">
+			{{#if status}}
+				{{#each rowControls.disabled}}
+					{{> _control_button}}
+				{{/each}}
+			{{else}}
+				{{#each rowControls.enabled}}
+					{{> _control_button}}
+				{{/each}}
+			{{/if}}
+			{{#if status}}
+			<div class='justify inline-block status-{{status}}'>
+			{{status}}
+			</div>
+			{{/if}}
+		</td>
+	</tr>
+	<tr id='{{_id}}' class='hidden form-row'>
+		<td colspan='{{Count listFields}}'>
+		{{ListForm this}}
+	</td>
+	</tr>
+</template>
+
+<template name='_listAddEditModal'>
+	<div id="{{modal.id}}" class="modal hide" role="dialog" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close close-modal">&times;</button>
+			<h3>{{modal.title}}</h3>
+		</div>
+		<div class="modal-body">			
+				{{ListForm this ../this}}
+		</div>
+		<div class="modal-footer">
+			<button class="btn close-modal">Close</button>
+			<button class="btn btn-primary {{modal.save_click}}">Save</button>
+		</div>
+	</div>
+</template>
+
+
+<template name='_listForm'>
+	<form id='{{_id}}_form' class="lower-tab form-horizontal" name='{{form.helpers.form_name}}'>
+	<fieldset>
+		{{#each form.helpers.fields}}
+			{{formField this ../this}}
+		{{/each}}
+	</fieldset>
+	<input type='submit' value='Save' class='btn btn-primary'>
+	<button class="close-form btn btn-inverse">Cancel</button>
+</form>
+</template>
+
+<template name='listInstructions'>
+	<div>
+		<p>
+			Adding a list only adds the title, subject and grade for the list.  
+			Once a list has been added additional options will appear allowing 
+			one to add content to the list.	The subjects that are available to 
+			a list are determined by the classes setup within a district.
+		</p>
+		<ul>
+			<li>{{control_button '' 'warning' 'pencil' '' 'Edit List'}} Edit a list.</li>
+			<li>{{control_button '' 'danger' 'trash' '' 'Disable List'}} Disable a list.</li>
+			<li>{{control_button '' 'success' 'repeat' '' 'Reinstate List'}} Reinstate a list.</li>
+			<li>{{control_button '' 'danger' 'remove' '' 'Purge Disabled Lists' ''}} Purge disabled lists.</li>
+			<li>{{control_button '' 'success' 'align-justify' '' 'Edit List Content'}} Edit a lists content.</li>
+		</ul>
+		
+		<p>
+			The search box will search lists by title. A limited regular expression syntax is available to allow for advanced searches.
+		</p>
+		<ul>
+			<li>"^Iden" - Searches for lists that start with "Iden".  The "^" character indicates to search from the start of the entered text.</li>
+			<li>"subject=science" - Searches for 'science' in the subject column.</li>
+		</ul>
+
+		<div class='alert alert-error'>
+			<h4>WARNING!</h4>
+			When a list is disabled all users that are currently in the list will be
+			redirected to their class selection menu.
+		</div>
+	</div>
+</template>
+
+
