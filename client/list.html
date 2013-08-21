@@ -103,14 +103,14 @@
 
 <template name='_listForm'>
 	<form id='{{_id}}_form' class="lower-tab form-horizontal" name='{{form.helpers.form_name}}'>
-	<fieldset>
-		{{#each form.helpers.fields}}
-			{{formField this ../this}}
-		{{/each}}
-	</fieldset>
-	<input type='submit' value='Save' class='btn btn-primary'>
-	<button class="close-form btn btn-inverse">Cancel</button>
-</form>
+		<fieldset>
+			{{#each form.helpers.fields}}
+				{{formField this ../this}}
+			{{/each}}
+		</fieldset>
+		<input type='submit' value='Save' class='btn btn-primary'>
+		<button class="close-form btn btn-inverse">Cancel</button>
+	</form>
 </template>
 
 <template name='listInstructions'>

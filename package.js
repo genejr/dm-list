@@ -5,7 +5,14 @@ Package.describe({
 Package.on_use(function (api, where) {
 	api.use(['templating', 'coffeescript', 'less', 'Mesosphere', 'paginate', 'bootstrap','handlebars'], ['client','server']);
 	api.add_files([
-		// 'client/images/volume-down.png',
+		'client/userDataPopover.html',
+		'client/userDataPopover.coffee',
+		'client/controlButton.html',
+		'client/controlButton.coffee',
+		'client/phoneTemplate.html',
+		'client/addressTemplate.html',
+		'client/formFieldTemplates.html',
+		'client/formFieldTemplates.coffee',
 		'client/list.html',
 		'client/list.coffee',
 		'client/list.less'

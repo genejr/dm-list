@@ -1,0 +1,98 @@
+<template name="textFieldTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			<input name="{{name}}" type="text" value="{{value this}}"/>
+		</div>
+	</div>
+</template>
+
+<template name="hiddenFieldTemplate">
+	<input name="{{name}}" type="hidden" value="{{value this}}"/>
+</template>
+
+<template name="selectFieldTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			<select name="{{name}}">
+				{{#each value}}
+				<option {{selected}}>{{title}}</option>
+				{{/each}}
+			</select>
+		</div>
+	</div>
+</template>
+
+<template name="staticFieldTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			{{value this}}
+		</div>
+	</div>
+</template>
+
+<template name="addressFieldsTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			<input type="text" name='address1' value='{{value.address1}}' placeholder='Address Line 1'/><br>
+			<div id='address1-error'></div>
+			<input type="text" name='address2' value='{{value.address2}}' placeholder='Address Line 2 (optional)'/><br>
+			<div id='address2-error'></div>
+			<input type="text" name='city' value='{{value.city}}' placeholder='City'/>
+			<input type="text" name='state' value='{{value.state}}' placeholder='ST'/>
+			<input type="text" name='zip_code' value='{{value.zip_code}}' placeholder='ZIP Code'/><br>
+			<div id='city-error'></div><div id='state-error'></div><div id='zip_code-error'></div>
+		</div>
+	</div>
+</template>
+
+<template name="phoneFieldsTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			<input type="text" name='main' value='{{value.main}}' placeholder='Contact Phone'/><br>
+			<div id='main-error'></div>
+			<input type="text" name='fax' value='{{value.fax}}' placeholder='FAX'/>
+			<div id='fax-error'></div>
+		</div>
+	</div>
+</template>
+
+<template name="checkboxFieldTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			{{#each value}}
+			<label class='checkbox'>
+				<input name='{{../name}}' type='checkbox' {{checked}} value='{{_id}}'>
+				{{option_label}}
+			</label>
+			{{/each}}
+		</div>
+	</div>
+</template>
+
+<template name="tabsFieldTemplate">
+	<ul class='nav nav-tabs'>
+	{{#each value}}
+	<li class=''>
+		<a href='#{{this.tabName}}-tab'>{{this.tabName}}</a>
+	</li>
+	{{/each}}
+	</ul>
+	{{#each value}}
+	<div class="tab-pane" id="{{this.tabName}}-tab">
+		{{#if allRoles}}
+			<div class="control-group">
+				{{#each allRoles}}
+					{{>rolesInput}}
+				{{/each}}
+				<div id="{{this.tabName}}-error"></div>
+			</div>
+		{{/if}}
+	</div>
+	{{/each}}
+</template>

@@ -45,7 +45,11 @@ Handlebars.registerHelper 'listColumnHeaders', (data) ->
 	listFields = data.listFields
 	columnHeaders = 
 		for field in listFields
-			field.name.titleize()
+			if field.label?
+				field.label.titleize()
+			else
+				field.name.titleize()
+
 	returnData = 
 		columnHeaders: columnHeaders
 
@@ -80,6 +84,14 @@ Handlebars.registerHelper 'ListAddEditModal', (data, context) ->
 	return new Handlebars.SafeString Template._listAddEditModal(data)
 
 Handlebars.registerHelper 'ListForm', (data, context) ->
+	fields = []
+	providedFields = data.form.helpers.fields
+	if not Array.isArray(providedFields)
+		for key in Object.keys(providedFields)
+			options = providedFields[key]
+			options.name = key
+			fields.add options
+		data.form.helpers.fields = fields
 	return new Handlebars.SafeString Template._listForm(this)
 
 Handlebars.registerHelper 'Count', (array) ->
