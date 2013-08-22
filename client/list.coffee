@@ -6,22 +6,23 @@ Template.lists.helpers
 
 		# Template._listForm.helpers(data.form.helpers)
 
-		Template._listRow.events(data.row.events)
+		Template._listRow.events(data?.row?.events)
 		if data.row?.helpers?
 			Template._listRow.helpers(data.row.helpers)
 
-		Template.lists.events(data.list.events)
+		Template.lists.events(data?.list?.events)
 
 
 
 		items = []
-		for item in data.items()
-			data = Object.reject(data, 'items')
-			item.context = data
-			items.add item
+		if data.items? and typeof data.items is 'function'
+			for item in data.items()
+				data = Object.reject(data, 'items')
+				item.context = data
+				items.add item
 
-		if items.length > 0
-			return items
+			if items.length > 0
+				return items
 
 Template._listRow.helpers
 	disabled: () ->
@@ -30,9 +31,8 @@ Template._listRow.helpers
 	selected: () ->
 		context = this.context
 		single = context.single
-		user = Meteor.user()
-		
-		return getUserSelectedItem(user, single, this._id) and 'alert-info'
+		if Session.get("selected-#{single}") is this._id
+			return 'alert-info'
 
 Template._listRow.events
 	"click .close-form": () ->
@@ -43,17 +43,18 @@ Template._listRow.events
 # names in listFields.
 Handlebars.registerHelper 'listColumnHeaders', (data) ->
 	listFields = data.listFields
-	columnHeaders = 
-		for field in listFields
-			if field.label?
-				field.label.titleize()
-			else
-				field.name.titleize()
+	if Array.isArray(listFields) and listFields.length > 0
+		columnHeaders = 
+			for field in listFields
+				if field.label?
+					field.label.titleize()
+				else
+					field.name.titleize()
 
-	returnData = 
-		columnHeaders: columnHeaders
+		returnData = 
+			columnHeaders: columnHeaders
 
-	return new Handlebars.SafeString Template._listColumnHeaders(returnData)
+		return new Handlebars.SafeString Template._listColumnHeaders(returnData)
 
 
 Handlebars.registerHelper 'listRow', () ->
@@ -85,7 +86,10 @@ Handlebars.registerHelper 'ListAddEditModal', (data, context) ->
 
 Handlebars.registerHelper 'ListForm', (data, context) ->
 	fields = []
-	providedFields = data.form.helpers.fields
+	if data.helpers?
+		providedFields = data.helpers.fields
+	else
+		providedFields = data.form.helpers.fields
 	if not Array.isArray(providedFields)
 		for key in Object.keys(providedFields)
 			options = providedFields[key]
