@@ -35,8 +35,20 @@ Template._listRow.helpers
 			return 'alert-info'
 
 Template._listRow.events
-	"click .close-form": () ->
+	"click .close-form": (event, template) ->
 		$('.form-row').addClass('hidden')
+		return false
+
+	"click .select-list-item": (event,template) ->
+		data = template.data
+		context = data.context
+		single = context.single
+		sessionVar = "selected-#{single}"
+		if Session.get(sessionVar) is data._id
+			Session.set(sessionVar, null)
+		else
+			Session.set(sessionVar, data._id)
+
 		return false
 
 # Helper for the column headers.  data should have the field
