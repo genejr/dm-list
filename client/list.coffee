@@ -3,17 +3,94 @@ Template.lists.helpers
 	lists: () ->
 		data = this
 		title = data.title
+		if typeof data.single is 'undefined'
+			console.log data
 
-		# Template._listForm.helpers(data.form.helpers)
-
-		Template._listRow.events(data?.row?.events)
+		if data?.row?.events?
+			Template._listRow.events(data?.row?.events)
+		
 		if data.row?.helpers?
 			Template._listRow.helpers(data.row.helpers)
+		
 
-		Template.lists.events(data?.list?.events)
+		# Define some events that will be available even
+		# if the user doesn't define them.  To override
+		# these events simply define your own in the passed
+		# data as list.events.
+		listEvents = {}
+		_listRowEvents = {}
+		templateEvent = "click .select-#{data.single}"
+		_listRowEvents[templateEvent] = (event,template) ->
+			data = template.data
+			single = data.context.single
+			sessionVar = "selected-#{single}"
+			if Session.get(sessionVar) is data._id
+				Session.set(sessionVar, null)
+			else
+				Session.set(sessionVar, data._id)
 
+			return false
 
+		templateEvent = "click .enable-#{data.single}"
+		_listRowEvents[templateEvent] = (event,template) ->
+			data = template.data
+			single = data.context.single
+			Klass = data.context.klass
+			bootbox.itemId = data._id
+			confirmation = """
+			Are you sure you want to re-enable this #{data.single}?
+			"""
+			bootbox.confirm confirmation, (confirmed) ->
+				if confirmed 
+					Klass.update bootbox.itemId, {$set: {status: ''}}
+			return false
 
+		templateEvent = "click .disable-#{data.single}"
+		_listRowEvents[templateEvent] = (event,template) ->
+			data = template.data
+			single = data.context.single
+			Klass = data.context.klass
+			bootbox.itemId = data._id
+			confirmation = """
+			Are you sure you want to disable this #{data.single}?
+			<br>
+			<br>
+			<div class='alert alert-error'>
+				<h4>Severe Warning</h4>
+				No users will be able to use this #{data.single}.  This could lead to a service interruption. 
+			</div>
+			"""
+			bootbox.confirm confirmation, (confirmed) ->
+				if confirmed
+					Klass.update bootbox.itemId, {$set: {status: 'disabled'}}
+			return false
+
+		templateEvent = "click .edit-#{data.single}"
+		_listRowEvents[templateEvent] = (event,template) ->
+			data = template.data
+			element = $("##{data._id}")
+			if element.hasClass('hidden')
+				element.removeClass('hidden')
+			else
+				element.addClass('hidden')
+			return false		
+				
+		# Add in or override user defined events.
+		if data.list?.events?
+			_.extend(data.list.events, listEvents)
+			# console.log data.list.events
+			Template.lists.events(data.list.events)
+		else
+			# console.log listEvents
+			Template.lists.events(listEvents)
+
+		if data?.row?.events?
+			_.extend(data.row.events, _listRowEvents)
+			Template._listRow.events(data.row.events)
+		else
+			Template._listRow.events(_listRowEvents)
+		# Build up an array of the items to be in the list
+		# adding in the context data
 		items = []
 		if data.items? and typeof data.items is 'function'
 			for item in data.items()
@@ -23,6 +100,110 @@ Template.lists.helpers
 
 			if items.length > 0
 				return items
+
+Template.listNav.helpers
+	nav: () ->
+		data = this
+		# Define some events that will be available even
+		# if the user doesn't define them.  To override
+		# these events simply define your own in the passed
+		# data as nav.events.
+		navEvents = {}
+		templateEvent = "click .add-#{data.single}"
+		navEvents[templateEvent] = (event, template) ->
+			context = template.data
+			single = context.single
+			klass = context.klass
+			console.log "You have not defined a custom add handler for #{data.title}.  Using the default."
+			if typeof context.newItemCallback isnt 'undefined'
+				_id = context.newItemCallback()
+			else
+				_id = klass.insert()
+ 
+			# Show the edit form after a 100ms delay after the item is inserted .
+			showForm = () ->
+				$("##{_id}").removeClass('hidden')
+
+			setTimeout showForm, 100, _id
+
+			return false	
+		# ---------------------------------------------------------------------------------------
+
+		templateEvent = "click .purge-disabled-#{data.plural}"
+		navEvents[templateEvent] = (event, template) ->
+			context = template.data
+			plural = context.plural
+			console.log "You have not defined a custom purge handler for #{data.title}.  Using the default."
+			confirm_dialog = """
+			Are you sure you want to purge the diabled #{plural}?
+			<br><br>
+			<div class='alert alert-error'>
+				<h4>Severe Warning</h4>
+				All purged #{plural} cannot be recovered.  This will be your ONLY warning.
+			</div>
+			"""
+
+			bootbox.confirm confirm_dialog, (confirmed) ->
+				if confirmed
+					Meteor.call "purge#{context.title}",
+					(error, result) ->
+						if error
+							Meteor.Errors.throw error
+						if result
+							Meteor.Notices.throw('Your disabled records have been purged.', 'success')
+			return false
+		# ---------------------------------------------------------------------------------------
+
+		templateEvent = "click .reset"
+		navEvents[templateEvent] = (event, template) ->
+			context = template.data
+			single = context.single
+			$(".#{single}-search").addClass('hide')
+			$(".#{single}-search-query").attr('value','')
+			Session.set("#{single}Find",{})
+			return false
+
+		# ---------------------------------------------------------------------------------------
+
+		templateEvent = "keyup .#{data.single}-search-query"
+		navEvents[templateEvent] = (event, template) ->
+			context = template.data
+			single = context.single
+			value = event.target.value
+			$(".#{data.single}-search").removeClass("hide")
+			if value?
+				if value.has("=")
+					key = value.split("=")[0]
+					search_string = value.split("=")[1]
+					search = {}
+					search[key] = 
+						$regex: ".*#{search_string}.*"
+						$options: "i"
+					Session.set("#{data.single}Find", search)
+				else if value.has(" ")
+					search_terms = value.split " "
+					regex_array = 
+						for term in search_terms
+							 ".*#{term}.*"
+					regex = regex_array.join "|"
+					Session.set("#{data.single}Find", {name: {$regex: regex, $options: "i"}})
+				else
+					regex = ".*#{value}.*"
+					Session.set("#{data.single}Find", {name: {$regex: regex, $options: "i"}})
+			else
+				Session.set("#{data.single}Find", {})
+				$(".#{data.single}-search").addClass("hide")
+				$(".#{data.single}-search-query").attr("value","")
+			return false
+
+		if data.nav?.events?
+			_.extend(data.nav.events, navEvents)
+			Template.listNav.events(data.nav.events)
+		else
+			Template.listNav.events(navEvents)
+
+		return 'List Navigation and Controls'
+
 
 Template._listRow.helpers
 	disabled: () ->
@@ -37,18 +218,6 @@ Template._listRow.helpers
 Template._listRow.events
 	"click .close-form": (event, template) ->
 		$('.form-row').addClass('hidden')
-		return false
-
-	"click .select-list-item": (event,template) ->
-		data = template.data
-		context = data.context
-		single = context.single
-		sessionVar = "selected-#{single}"
-		if Session.get(sessionVar) is data._id
-			Session.set(sessionVar, null)
-		else
-			Session.set(sessionVar, data._id)
-
 		return false
 
 # Helper for the column headers.  data should have the field
@@ -98,8 +267,8 @@ Handlebars.registerHelper 'ListAddEditModal', (data, context) ->
 
 Handlebars.registerHelper 'ListForm', (data, context) ->
 	fields = []
-	if data.helpers?
-		providedFields = data.helpers.fields
+	if data.form.fields?
+		providedFields = data.form.fields
 	else
 		providedFields = data.form.helpers.fields
 	if not Array.isArray(providedFields)
@@ -107,8 +276,12 @@ Handlebars.registerHelper 'ListForm', (data, context) ->
 			options = providedFields[key]
 			options.name = key
 			fields.add options
-		data.form.helpers.fields = fields
-	return new Handlebars.SafeString Template._listForm(this)
+		data.fields = fields
+	if data.form?.helpers?.form_name?
+		data.form_name = data.form.helpers.form_name
+	else
+		data.form_name = "#{data.context.single.titleize()}AddEditForm"
+	return new Handlebars.SafeString Template._listForm(data)
 
 Handlebars.registerHelper 'Count', (array) ->
 	return array.length + 1
