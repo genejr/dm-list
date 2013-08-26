@@ -2,6 +2,7 @@ Handlebars.registerHelper 'formField', (field, context) ->
 	template = 
 		switch field.inputType
 			when 'text' then 'textFieldTemplate'
+			when 'password' then 'passwordFieldTemplate'
 			when 'hidden' then 'hiddenFieldTemplate'
 			when 'static' then 'staticFieldTemplate'
 			when 'select' then 'selectFieldTemplate'

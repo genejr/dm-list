@@ -1,5 +1,11 @@
 <template name="_control_button">
+	{{#if link}}
+	<a title='{{title}}' data-record="{{data._id}}" href='{{pathFor link data}}' class='pointer btn btn-mini btn-{{style}} control-button {{css}}'>
+		<i class='icon-white icon-{{icon}}'></i>
+	</a>
+	{{else}}
 	<button title='{{title}}' data-record="{{data._id}}" class='pointer {{click}} btn btn-mini btn-{{style}} control-button {{css}}'>
 		<i class='icon-white icon-{{icon}}'></i>
 	</button>
+	{{/if}}
 </template>

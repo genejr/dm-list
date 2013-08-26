@@ -83,32 +83,17 @@
 			{{/if}}
 		</td>
 	</tr>
+	{{#if inlineForm}}
 	<tr id='{{_id}}' class='hidden form-row'>
 		<td colspan='{{Count listFields}}'>
 		{{ListForm this}}
 	</td>
 	</tr>
+	{{/if}}
 </template>
-
-<template name='_listAddEditModal'>
-	<div id="{{modal.id}}" class="modal hide" role="dialog" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close close-modal">&times;</button>
-			<h3>{{modal.title}}</h3>
-		</div>
-		<div class="modal-body">			
-				{{ListForm this ../this}}
-		</div>
-		<div class="modal-footer">
-			<button class="btn close-modal">Close</button>
-			<button class="btn btn-primary {{modal.save_click}}">Save</button>
-		</div>
-	</div>
-</template>
-
 
 <template name='_listForm'>
-	<form id='{{_id}}_form' class="lower-tab form-horizontal" name='{{form.helpers.form_name}}'>
+	<form id='{{_id}}_form' class="lower-tab form-horizontal" name='{{form_name}}'>
 		<fieldset>
 			{{#each fields}}
 				{{formField this ../this}}
@@ -124,7 +109,7 @@
 		<p>
 			Adding a list only adds the title, subject and grade for the list.  
 			Once a list has been added additional options will appear allowing 
-			one to add content to the list.	The subjects that are available to 
+			one to add content to the list.	The subjects that are available to
 			a list are determined by the classes setup within a district.
 		</p>
 		<ul>
@@ -151,4 +136,14 @@
 	</div>
 </template>
 
+
+<template name="disableListItemConfirmation">
+	Are you sure you want to disable this #{single}?
+	<br>
+	<br>
+	<div class='alert alert-error'>
+		<h4>Severe Warning</h4>
+		No users will be able to use this #{single}.  This could lead to a service interruption. 
+	</div>
+</template>
 

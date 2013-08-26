@@ -1,3 +1,10 @@
+Template.lists.rendered = () ->
+	data = this.data
+	editing = Session.get("edit-#{data.single}")
+	if editing?
+		element = $("##{editing}")
+		element.removeClass('hidden')
+
 
 Template.lists.helpers
 	lists: () ->
@@ -5,6 +12,8 @@ Template.lists.helpers
 		title = data.title
 		if typeof data.single is 'undefined'
 			console.log data
+		if typeof data.test isnt 'undefined'
+			console.log data.test
 
 		if data?.row?.events?
 			Template._listRow.events(data?.row?.events)
@@ -15,7 +24,7 @@ Template.lists.helpers
 
 		# Define some events that will be available even
 		# if the user doesn't define them.  To override
-		# these events simply define your own in the passed
+		# these events simply define your own in the passed 
 		# data as list.events.
 		listEvents = {}
 		_listRowEvents = {}
@@ -38,7 +47,7 @@ Template.lists.helpers
 			Klass = data.context.klass
 			bootbox.itemId = data._id
 			confirmation = """
-			Are you sure you want to re-enable this #{data.single}?
+			Are you sure you want to re-enable this #{single}?
 			"""
 			bootbox.confirm confirmation, (confirmed) ->
 				if confirmed 
@@ -51,15 +60,19 @@ Template.lists.helpers
 			single = data.context.single
 			Klass = data.context.klass
 			bootbox.itemId = data._id
-			confirmation = """
-			Are you sure you want to disable this #{data.single}?
-			<br>
-			<br>
-			<div class='alert alert-error'>
-				<h4>Severe Warning</h4>
-				No users will be able to use this #{data.single}.  This could lead to a service interruption. 
-			</div>
-			"""
+			if typeof data.context.disableMessageTemplate isnt 'undefined'
+				confirmation = data.context.disableMessageTemplate
+			else
+				confirmation = """
+				Are you sure you want to disable this #{single}?
+				<br>
+				<br>
+				<div class='alert alert-error'>
+					<h4>Severe Warning</h4>
+					No users will be able to use this #{single}.  This could lead to a service interruption. 
+				</div>
+				"""
+
 			bootbox.confirm confirmation, (confirmed) ->
 				if confirmed
 					Klass.update bootbox.itemId, {$set: {status: 'disabled'}}
@@ -68,20 +81,31 @@ Template.lists.helpers
 		templateEvent = "click .edit-#{data.single}"
 		_listRowEvents[templateEvent] = (event,template) ->
 			data = template.data
+			single = data.context.single
+			Session.set("edit-#{single}", data._id)
 			element = $("##{data._id}")
 			if element.hasClass('hidden')
+				$('.form-row').addClass('hidden')
 				element.removeClass('hidden')
 			else
 				element.addClass('hidden')
+				Session.set("edit-#{single}", null)
 			return false		
-				
+
+		templateEvent = "click .close-form-#{data.single}"
+		_listRowEvents[templateEvent] = (event,template) ->
+			data = template.data
+			single = data.context.single
+			element = $("##{data._id}")
+			element.addClass('hidden')
+			Session.set("edit-#{single}", null)
+			return false
+
 		# Add in or override user defined events.
 		if data.list?.events?
 			_.extend(data.list.events, listEvents)
-			# console.log data.list.events
 			Template.lists.events(data.list.events)
 		else
-			# console.log listEvents
 			Template.lists.events(listEvents)
 
 		if data?.row?.events?
@@ -89,6 +113,7 @@ Template.lists.helpers
 			Template._listRow.events(data.row.events)
 		else
 			Template._listRow.events(_listRowEvents)
+
 		# Build up an array of the items to be in the list
 		# adding in the context data
 		items = []
@@ -104,6 +129,11 @@ Template.lists.helpers
 Template.listNav.helpers
 	nav: () ->
 		data = this
+		single = data.single
+		plural = data.plural
+		singleTitle = single.titleize()
+		pluralTitle = plural.titleize()
+
 		# Define some events that will be available even
 		# if the user doesn't define them.  To override
 		# these events simply define your own in the passed
@@ -164,7 +194,9 @@ Template.listNav.helpers
 			return false
 
 		# ---------------------------------------------------------------------------------------
-
+		# Search
+		# At the moment the query for search uses name as the key.  Need to revist this
+		# to make it so that the package user can set what the default
 		templateEvent = "keyup .#{data.single}-search-query"
 		navEvents[templateEvent] = (event, template) ->
 			context = template.data
@@ -202,6 +234,20 @@ Template.listNav.helpers
 		else
 			Template.listNav.events(navEvents)
 
+		# Setup the add and purge buttons if the user
+		# didn't pass in any.
+		if not data.addButton?
+			data.addButton =
+				title: "Add a #{singleTitle}"
+				label: "Add a #{singleTitle}"
+				control_class: "add-#{singleTitle}"
+
+		if not data.purgeButton?
+			data.purgeButton =
+				title: "Purge Disabled #{pluralTitle}"
+				label: "Purge Disabled #{pluralTitle}"
+				control_class: "purge-disabled-#{plural}"
+
 		return 'List Navigation and Controls'
 
 
@@ -215,10 +261,6 @@ Template._listRow.helpers
 		if Session.get("selected-#{single}") is this._id
 			return 'alert-info'
 
-Template._listRow.events
-	"click .close-form": (event, template) ->
-		$('.form-row').addClass('hidden')
-		return false
 
 # Helper for the column headers.  data should have the field
 # names in listFields.
@@ -244,8 +286,19 @@ Handlebars.registerHelper 'listRow', () ->
 	
 	data.row_css_class = "#{context.title.toLowerCase()}-row"
 	data.listFields = context.listFields
-	data.rowControls = context.rowControls
+
+	# console.log context.rowControls
+	data.rowControls = {}
+	for control in Object.keys(context.rowControls)
+		array = []
+		for item in context.rowControls[control]
+			controlData = Object.reject(data, 'context')
+			item.data = controlData
+			array.push item
+		data.rowControls[control] = array
+	
 	data.form = context.form
+	data.inlineForm = context.inlineForm
 	return new Handlebars.SafeString Template._listRow(data)
 
 Handlebars.registerHelper 'listRowColumn', (data, context) ->

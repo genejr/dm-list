@@ -1,14 +1,8 @@
-uuid = ->
-  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
-    r = Math.random() * 16 | 0
-    v = if c is 'x' then r else (r & 0x3|0x8)
-    v.toString(16)
-  )
+Handlebars.registerHelper "control_button", (click='', style, icon, title='',  css='', link='' ) ->
+	if typeof link isnt 'string'
+		link = null
 
-Handlebars.registerHelper "control_button", (click='', style, icon, title='',  css='' ) ->
-
-
-	if typeof css is 'string' and css != ''
+	if typeof css is 'string' and css isnt ''
 		css = css
 	else
 		css = null
@@ -19,6 +13,7 @@ Handlebars.registerHelper "control_button", (click='', style, icon, title='',  c
 		icon: icon if typeof icon is 'string'
 		title: title if typeof title is 'string'
 		css: css
+		link: link
 
 	return Template._control_button(obj)
 #----------------------------------------------------------------------

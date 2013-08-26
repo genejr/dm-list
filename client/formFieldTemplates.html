@@ -7,6 +7,15 @@
 	</div>
 </template>
 
+<template name="passwordFieldTemplate">
+	<div class="control-group">
+		<label class="control-label" for="{{name}}">{{label}}</label>
+		<div class="controls">
+			<input name="{{name}}" type="password" value="{{value this}}"/>
+		</div>
+	</div>
+</template>
+
 <template name="hiddenFieldTemplate">
 	<input name="{{name}}" type="hidden" value="{{value this}}"/>
 </template>
@@ -28,7 +37,7 @@
 	<div class="control-group">
 		<label class="control-label" for="{{name}}">{{label}}</label>
 		<div class="controls">
-			{{value this}}
+			<input type='text' value='{{value this}}' disabled/>
 		</div>
 	</div>
 </template>
@@ -42,8 +51,8 @@
 			<input type="text" name='address2' value='{{value.address2}}' placeholder='Address Line 2 (optional)'/><br>
 			<div id='address2-error'></div>
 			<input type="text" name='city' value='{{value.city}}' placeholder='City'/>
-			<input type="text" name='state' value='{{value.state}}' placeholder='ST'/>
-			<input type="text" name='zip_code' value='{{value.zip_code}}' placeholder='ZIP Code'/><br>
+			<input class='input-mini' type="text" name='state' value='{{value.state}}' placeholder='ST'/>
+			<input class='input-small' type="text" name='zip_code' value='{{value.zip_code}}' placeholder='ZIP Code'/><br>
 			<div id='city-error'></div><div id='state-error'></div><div id='zip_code-error'></div>
 		</div>
 	</div>
@@ -64,7 +73,7 @@
 <template name="checkboxFieldTemplate">
 	<div class="control-group">
 		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
+		<div class="controls well well-small">
 			{{#each value}}
 			<label class='checkbox'>
 				<input name='{{../name}}' type='checkbox' {{checked}} value='{{_id}}'>

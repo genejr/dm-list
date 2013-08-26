@@ -5,4 +5,4 @@ Template._user_data_popover.rendered = () ->
 		data.email = data.emails[0].address
 
 	content = Template._user_data_popover_content(data)
-	$("##{data._id}").popover({ title: 'Contact this Person', placement: 'bottom', content: content, html: true });
+	$("##{data?._id}").popover({ title: 'Contact this Person', placement: 'bottom', content: content, html: true });
