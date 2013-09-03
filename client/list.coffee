@@ -240,7 +240,7 @@ Template.listNav.helpers
 			data.addButton =
 				title: "Add a #{singleTitle}"
 				label: "Add a #{singleTitle}"
-				control_class: "add-#{singleTitle}"
+				control_class: "add-#{single}"
 
 		if not data.purgeButton?
 			data.purgeButton =

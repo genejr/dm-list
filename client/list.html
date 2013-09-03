@@ -62,7 +62,7 @@
 </template>
 
 <template name="_listRow">
-	<tr class='{{row_css_class}} {{selected}} disabled_{{disabled}}'>
+	<tr class='{{row_css_class}} disabled_{{disabled}}'>
 		{{#each listFields}}
 			{{listRowColumn this ../this}}
 		{{/each}}
