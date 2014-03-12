@@ -1,7 +1,7 @@
 {
-	"name": "dm-lessons-management",
-	"description": "A list and associated forms for managing lesson records",
-	"homepage": "localhost",
-	"author": "Daniel Morrigan - DigiLord",
-	"version": "0.0.1"
+  "name": "dm-lessons-management",
+  "description": "A list and associated forms for managing lesson records",
+  "homepage": "localhost",
+  "author": "Daniel Morrigan - DigiLord",
+  "version": "0.0.1"
 }

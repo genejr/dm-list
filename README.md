@@ -4,7 +4,7 @@ dm-list
 A list item template that allows one to build a series of lists in a consistent manner.
 
 ## Why?
-In designing my application I had an administration view that was a series of tabs.  Each tab was identical in structure to the others visually.  The only real changes were the columns displayed and the form for data entry and editing.  After my second rund of changes to the way the list worked I decided it was time to make a re-usable temmplate and associated methods.  dm-list was born.
+In designing my application I had an administration view that was a series of tabs.  Each tab was identical in structure to the others visually.  The only real changes were the columns displayed and the form for data entry and editing.  After my second round of changes to the way the list worked I decided it was time to make a re-usable template and associated methods.  dm-list was born.
 
 ### Components
 Each of the following sections details a component and how it's used.
@@ -19,7 +19,7 @@ The template itself is not rendered in the same way that most templates in Meteo
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2013 D. Allen Morrigan
+Copyright &copy; 2014 D. Allen Morrigan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
