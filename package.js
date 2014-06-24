@@ -1,5 +1,5 @@
 Package.describe({
-	summary: "A list and associated forms for managing list records"
+  summary: "A list and associated forms for managing list records"
 });
 
 Package.on_use(function (api, where) {

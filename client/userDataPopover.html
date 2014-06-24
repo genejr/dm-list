@@ -1,11 +1,11 @@
 <template name="_user_data_popover">
-	<a id='{{_id}}' href=''>{{profile.name}}</a><br/>
+  <a id='{{_id}}' href=''>{{profile.name}}</a><br/>
 </template>
 
 <template name="_user_data_popover_content">
-	{{#if email}}
-	<div><label class='inline-label'>EMail: </label><a href='mailto:{{email}}'>{{email}}</a></div>
-	{{/if}}
-	<div><label class='inline-label'>Name:</label>{{profile.name}}</div>
-	<div><label class='inline-label'>Phone:</label>(Sorry, no phone number is available for this user.)</div>
+  {{#if email}}
+  <div><label class='inline-label'>EMail: </label><a href='mailto:{{email}}'>{{email}}</a></div>
+  {{/if}}
+  <div><label class='inline-label'>Name:</label>{{profile.name}}</div>
+  <div><label class='inline-label'>Phone:</label>(Sorry, no phone number is available for this user.)</div>
 </template>

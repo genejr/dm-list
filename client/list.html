@@ -104,45 +104,45 @@
 </template>
 
 <template name='listInstructions'>
-	<div>
-		<p>
-			Adding a list only adds the title, subject and grade for the list.  
-			Once a list has been added additional options will appear allowing 
-			one to add content to the list.	The subjects that are available to
-			a list are determined by the classes setup within a district.
-		</p>
-		<ul>
-			<li>{{control_button '' 'warning' 'pencil' '' 'Edit List'}} Edit a list.</li>
-			<li>{{control_button '' 'danger' 'trash' '' 'Disable List'}} Disable a list.</li>
-			<li>{{control_button '' 'success' 'repeat' '' 'Reinstate List'}} Reinstate a list.</li>
-			<li>{{control_button '' 'danger' 'remove' '' 'Purge Disabled Lists' ''}} Purge disabled lists.</li>
-			<li>{{control_button '' 'success' 'align-justify' '' 'Edit List Content'}} Edit a lists content.</li>
-		</ul>
-		
-		<p>
-			The search box will search lists by title. A limited regular expression syntax is available to allow for advanced searches.
-		</p>
-		<ul>
-			<li>"^Iden" - Searches for lists that start with "Iden".  The "^" character indicates to search from the start of the entered text.</li>
-			<li>"subject=science" - Searches for 'science' in the subject column.</li>
-		</ul>
+  <div>
+    <p>
+      Adding a list only adds the title, subject and grade for the list.  
+      Once a list has been added additional options will appear allowing 
+      one to add content to the list.  The subjects that are available to
+      a list are determined by the classes setup within a district.
+    </p>
+    <ul>
+      <li>{{control_button '' 'warning' 'pencil' '' 'Edit List'}} Edit a list.</li>
+      <li>{{control_button '' 'danger' 'trash' '' 'Disable List'}} Disable a list.</li>
+      <li>{{control_button '' 'success' 'repeat' '' 'Reinstate List'}} Reinstate a list.</li>
+      <li>{{control_button '' 'danger' 'remove' '' 'Purge Disabled Lists' ''}} Purge disabled lists.</li>
+      <li>{{control_button '' 'success' 'align-justify' '' 'Edit List Content'}} Edit a lists content.</li>
+    </ul>
+    
+    <p>
+      The search box will search lists by title. A limited regular expression syntax is available to allow for advanced searches.
+    </p>
+    <ul>
+      <li>"^Iden" - Searches for lists that start with "Iden".  The "^" character indicates to search from the start of the entered text.</li>
+      <li>"subject=science" - Searches for 'science' in the subject column.</li>
+    </ul>
 
-		<div class='alert alert-error'>
-			<h4>WARNING!</h4>
-			When a list is disabled all users that are currently in the list will be
-			redirected to their class selection menu.
-		</div>
-	</div>
+    <div class='alert alert-error'>
+      <h4>WARNING!</h4>
+      When a list is disabled all users that are currently in the list will be
+      redirected to their class selection menu.
+    </div>
+  </div>
 </template>
 
 
 <template name="disableListItemConfirmation">
-	Are you sure you want to disable this #{single}?
-	<br>
-	<br>
-	<div class='alert alert-error'>
-		<h4>Severe Warning</h4>
-		No users will be able to use this #{single}.  This could lead to a service interruption. 
-	</div>
+  Are you sure you want to disable this #{single}?
+  <br>
+  <br>
+  <div class='alert alert-error'>
+    <h4>Severe Warning</h4>
+    No users will be able to use this #{single}.  This could lead to a service interruption. 
+  </div>
 </template>
 

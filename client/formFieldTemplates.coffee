@@ -18,4 +18,3 @@ Handlebars.registerHelper 'formField', () ->
 
 	if this.renderIfEmpty or this.value isnt null
 		return Template[template]
-

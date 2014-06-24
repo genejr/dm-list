@@ -128,6 +128,79 @@ Template.lists.helpers
         element.addClass('hidden')
         Session.set("edit-#{single}", null)
         return false
+=======
+    _listRowEvents[templateEvent] = (event,template) ->
+      data = template.data
+      single = data.context.single
+      sessionVar = "selected-#{single}"
+      if Session.get(sessionVar) is data._id
+        Session.set(sessionVar, null)
+      else
+        Session.set(sessionVar, data._id)
+
+      return false
+
+    templateEvent = "click .enable-#{data.single}"
+    _listRowEvents[templateEvent] = (event,template) ->
+      data = template.data
+      single = data.context.single
+      Klass = data.context.klass
+      bootbox.itemId = data._id
+      confirmation = """
+      Are you sure you want to re-enable this #{single}?
+      """
+      bootbox.confirm confirmation, (confirmed) ->
+        if confirmed 
+          Klass.update bootbox.itemId, {$set: {status: ''}}
+      return false
+
+    templateEvent = "click .disable-#{data.single}"
+    _listRowEvents[templateEvent] = (event,template) ->
+      data = template.data
+      single = data.context.single
+      Klass = data.context.klass
+      bootbox.itemId = data._id
+      if typeof data.context.disableMessageTemplate isnt 'undefined'
+        confirmation = data.context.disableMessageTemplate
+      else
+        confirmation = """
+        Are you sure you want to disable this #{single}?
+        <br>
+        <br>
+        <div class='alert alert-error'>
+          <h4>Severe Warning</h4>
+          No users will be able to use this #{single}.  This could lead to a service interruption. 
+        </div>
+        """
+
+      bootbox.confirm confirmation, (confirmed) ->
+        if confirmed
+          Klass.update bootbox.itemId, {$set: {status: 'disabled'}}
+      return false
+
+    templateEvent = "click .edit-#{data.single}"
+    _listRowEvents[templateEvent] = (event,template) ->
+      data = template.data
+      single = data.context.single
+      Session.set("edit-#{single}", data._id)
+      element = $("##{data._id}")
+      if element.hasClass('hidden')
+        $('.form-row').addClass('hidden')
+        element.removeClass('hidden')
+      else
+        element.addClass('hidden')
+        Session.set("edit-#{single}", null)
+      return false    
+
+    templateEvent = "click .close-form-#{data.single}"
+    _listRowEvents[templateEvent] = (event,template) ->
+      data = template.data
+      single = data.context.single
+      element = $("##{data._id}")
+      element.addClass('hidden')
+      Session.set("edit-#{single}", null)
+      return false
+>>>>>>> 2d6d00a2da830ee8d011084d970a22eed0949f7f
 
     # Add in or override user defined events.
     if data.list?.events?
@@ -145,6 +218,7 @@ Template.lists.helpers
     # Build up an array of the items to be in the list
     # adding in the context data
     items = []
+<<<<<<< HEAD
     # if data.parent_id
     #   data.subscribeCallback(data.parent_id)
     # else
@@ -160,6 +234,19 @@ Template.lists.helpers
 Template.listNav.helpers
   nav: () ->
     # console.log 'listNav:nav', this
+=======
+    if data.items? and typeof data.items is 'function'
+      for item in data.items()
+        data = Object.reject(data, 'items')
+        item.context = data
+        items.add item
+
+      if items.length > 0
+        return items
+
+Template.listNav.helpers
+  nav: () ->
+>>>>>>> 2d6d00a2da830ee8d011084d970a22eed0949f7f
     data = this
     single = data.single
     plural = data.plural
@@ -172,6 +259,7 @@ Template.listNav.helpers
     # data as nav.events.
     navEvents = {}
     templateEvent = "click .add-#{data.single}"
+<<<<<<< HEAD
 
     if not DMUtils.find(Template.listNav._events, 'selector', ".add-#{data.single}")
       navEvents[templateEvent] = (event, template) ->
@@ -229,12 +317,67 @@ Template.listNav.helpers
         $(".#{single}-search-query").attr('value','')
         Session.set("#{single}Find",{})
         return false
+=======
+    navEvents[templateEvent] = (event, template) ->
+      context = template.data
+      single = context.single
+      klass = context.klass
+      console.log "You have not defined a custom add handler for #{data.title}.  Using the default."
+      if typeof context.newItemCallback isnt 'undefined'
+        _id = context.newItemCallback()
+      else
+        _id = klass.insert()
+ 
+      # Show the edit form after a 100ms delay after the item is inserted .
+      showForm = () ->
+        $("##{_id}").removeClass('hidden')
+
+      setTimeout showForm, 100, _id
+
+      return false  
+    # ---------------------------------------------------------------------------------------
+
+    templateEvent = "click .purge-disabled-#{data.plural}"
+    navEvents[templateEvent] = (event, template) ->
+      context = template.data
+      plural = context.plural
+      console.log "You have not defined a custom purge handler for #{data.title}.  Using the default."
+      confirm_dialog = """
+      Are you sure you want to purge the diabled #{plural}?
+      <br><br>
+      <div class='alert alert-error'>
+        <h4>Severe Warning</h4>
+        All purged #{plural} cannot be recovered.  This will be your ONLY warning.
+      </div>
+      """
+
+      bootbox.confirm confirm_dialog, (confirmed) ->
+        if confirmed
+          Meteor.call "purge#{context.title}",
+          (error, result) ->
+            if error
+              Meteor.Errors.throw error
+            if result
+              Meteor.Notices.throw('Your disabled records have been purged.', 'success')
+      return false
+    # ---------------------------------------------------------------------------------------
+
+    templateEvent = "click .reset"
+    navEvents[templateEvent] = (event, template) ->
+      context = template.data
+      single = context.single
+      $(".#{single}-search").addClass('hide')
+      $(".#{single}-search-query").attr('value','')
+      Session.set("#{single}Find",{})
+      return false
+>>>>>>> 2d6d00a2da830ee8d011084d970a22eed0949f7f
 
     # ---------------------------------------------------------------------------------------
     # Search
     # At the moment the query for search uses name as the key.  Need to revist this
     # to make it so that the package user can set what the default
     templateEvent = "keyup .#{data.single}-search-query"
+<<<<<<< HEAD
     if not DMUtils.find(Template.listNav._events, 'selector', ".#{data.single}-search-query")
       navEvents[templateEvent] = (event, template) ->
         context = template.data
@@ -265,6 +408,37 @@ Template.listNav.helpers
           $(".#{data.single}-search").addClass("hide")
           $(".#{data.single}-search-query").attr("value","")
         return false
+=======
+    navEvents[templateEvent] = (event, template) ->
+      context = template.data
+      single = context.single
+      value = event.target.value
+      $(".#{data.single}-search").removeClass("hide")
+      if value?
+        if value.has("=")
+          key = value.split("=")[0]
+          search_string = value.split("=")[1]
+          search = {}
+          search[key] = 
+            $regex: ".*#{search_string}.*"
+            $options: "i"
+          Session.set("#{data.single}Find", search)
+        else if value.has(" ")
+          search_terms = value.split " "
+          regex_array = 
+            for term in search_terms
+               ".*#{term}.*"
+          regex = regex_array.join "|"
+          Session.set("#{data.single}Find", {name: {$regex: regex, $options: "i"}})
+        else
+          regex = ".*#{value}.*"
+          Session.set("#{data.single}Find", {name: {$regex: regex, $options: "i"}})
+      else
+        Session.set("#{data.single}Find", {})
+        $(".#{data.single}-search").addClass("hide")
+        $(".#{data.single}-search-query").attr("value","")
+      return false
+>>>>>>> 2d6d00a2da830ee8d011084d970a22eed0949f7f
 
     if data.nav?.events?
       _.extend(data.nav.events, navEvents)
@@ -274,6 +448,7 @@ Template.listNav.helpers
 
     # Setup the add and purge buttons if the user
     # didn't pass in any.
+<<<<<<< HEAD
     if not data.addButton? and data.addButton isnt false
       data.addButton =
         title: "Add a #{singleTitle}"
@@ -291,6 +466,21 @@ Template.listNav.helpers
         icon: "remove"
 
     return data
+=======
+    if not data.addButton?
+      data.addButton =
+        title: "Add a #{singleTitle}"
+        label: "Add a #{singleTitle}"
+        control_class: "add-#{single}"
+
+    if not data.purgeButton?
+      data.purgeButton =
+        title: "Purge Disabled #{pluralTitle}"
+        label: "Purge Disabled #{pluralTitle}"
+        control_class: "purge-disabled-#{plural}"
+
+    return 'List Navigation and Controls'
+>>>>>>> 2d6d00a2da830ee8d011084d970a22eed0949f7f
 
 
 Template._listRow.helpers
@@ -306,6 +496,7 @@ Template._listRow.helpers
 
 # Helper for the column headers.  data should have the field
 # names in listFields.
+<<<<<<< HEAD
 UI.registerHelper 'listColumnHeaders', () ->
   listFields = this.listFields
   if Array.isArray(listFields) and listFields.length > 0
