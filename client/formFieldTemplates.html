@@ -1,17 +1,24 @@
 <template name="textFieldTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
-			<input name="{{name}}" type="text" value="{{value this}}"/>
-		</div>
+	<div class="form-group col-md-{{size}}">
+		<label for="{{name}}">{{label}} <span id='{{name}}-error'></span></label>
+		<input name="{{name}}" class="form-control" type="text" value="{{value}}"/>
+	</div>
+</template>
+
+<template name="textAreaFieldTemplate">
+	<div class="form-group col-md-{{size}}">
+		<label for="{{name}}">{{label}}</label>
+		<textarea name="{{name}}" class="form-control" type="text">
+			{{value}}
+		</textarea>
 	</div>
 </template>
 
 <template name="passwordFieldTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
-			<input name="{{name}}" type="password" value="{{value this}}"/>
+	<div class="form-group">
+		<label class='col-md-2 control-label' for="{{name}}">{{label}}</label>
+		<div class="col-md-10">
+			<input name="{{name}}" class="form-control" type="password" value="{{value this}}"/>
 		</div>
 	</div>
 </template>
@@ -21,9 +28,9 @@
 </template>
 
 <template name="selectFieldTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label for="{{name}}">{{label}}</label>
+		<div class="form-controls">
 			<select name="{{name}}">
 				{{#each value}}
 				<option {{checked}} value='{{_id}}'>{{option_label}}</option>
@@ -34,34 +41,36 @@
 </template>
 
 <template name="staticFieldTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label for="{{name}}">{{label}}</label>
+		<div class="form-controls">
 			<input type='text' value='{{value this}}' disabled/>
 		</div>
 	</div>
 </template>
 
 <template name="addressFieldsTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
-			<input type="text" name='address1' value='{{value.address1}}' placeholder='Address Line 1'/><br>
-			<div id='address1-error'></div>
-			<input type="text" name='address2' value='{{value.address2}}' placeholder='Address Line 2 (optional)'/><br>
-			<div id='address2-error'></div>
-			<input type="text" name='city' value='{{value.city}}' placeholder='City'/>
-			<input class='input-mini' type="text" name='state' value='{{value.state}}' placeholder='ST'/>
-			<input class='input-small' type="text" name='zip_code' value='{{value.zip_code}}' placeholder='ZIP Code'/><br>
-			<div id='city-error'></div><div id='state-error'></div><div id='zip_code-error'></div>
-		</div>
+	<h3>Address</h3>
+	<div class="form-group">
+		<label for="address1">Address Line 1 <span id='address1-error'></span></label>
+		<input type="text" name='address1' value='{{value.address1}}' placeholder='Address Line 1' class="form-control"/><br>
+	</div>
+	<div class="form-group">
+		<label for="address2">Address Line 2 <span id='address2-error'></span></label>
+		<input type="text" name='address2' value='{{value.address2}}' placeholder='Address Line 2 (optional)' class="form-control"/>
+	</div>
+	<div class="form-group">
+		<input type="text" name='city' value='{{value.city}}' placeholder='City'/>
+		<input class='input-mini' type="text" name='state' value='{{value.state}}' placeholder='ST'/>
+		<input class='input-small' type="text" name='zip_code' value='{{value.zip_code}}' placeholder='ZIP Code'/><br>
+		<div id='city-error'></div><div id='state-error'></div><div id='zip_code-error'></div>
 	</div>
 </template>
 
 <template name="phoneFieldsTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label for="{{name}}">{{label}}</label>
+		<div class="form-controls">
 			<input type="text" name='main' value='{{value.main}}' placeholder='Contact Phone'/><br>
 			<div id='main-error'></div>
 			<input type="text" name='fax' value='{{value.fax}}' placeholder='FAX'/>
@@ -71,8 +80,8 @@
 </template>
 
 <template name="checkboxFieldTemplate">
-	<div class="control-group">
-		<label class="control-label" for="{{name}}">{{label}}</label>
+	<div class="form-group">
+		<label for="{{name}}">{{label}}</label>
 		<div class="controls well well-small">
 			{{#each value}}
 			<label class='checkbox'>
@@ -95,7 +104,7 @@
 	{{#each value}}
 	<div class="tab-pane" id="{{this.tabName}}-tab">
 		{{#if allRoles}}
-			<div class="control-group">
+			<div class="form-group">
 				{{#each allRoles}}
 					{{>rolesInput}}
 				{{/each}}

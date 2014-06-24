@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
-	api.use(['templating', 'coffeescript', 'less', 'Mesosphere', 'paginate', 'bootstrap','handlebars', 'bootboxjs'], ['client','server']);
+	api.use(['templating', 'coffeescript', 'less', 'Mesosphere', 'bootstrap-3','ui', 'bootboxjs', 'moment'], ['client','server']);
 	api.add_files([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',
@@ -17,4 +17,5 @@ Package.on_use(function (api, where) {
 		'client/list.coffee',
 		'client/list.less'
 		],'client');
+	api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server'])
 });

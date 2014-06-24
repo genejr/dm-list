@@ -1,7 +1,8 @@
-Handlebars.registerHelper 'formField', (field, context) ->
+Handlebars.registerHelper 'formField', () ->
 	template = 
-		switch field.inputType
+		switch this.inputType
 			when 'text' then 'textFieldTemplate'
+			when 'textarea' then 'textAreaFieldTemplate'
 			when 'password' then 'passwordFieldTemplate'
 			when 'hidden' then 'hiddenFieldTemplate'
 			when 'static' then 'staticFieldTemplate'
@@ -12,10 +13,9 @@ Handlebars.registerHelper 'formField', (field, context) ->
 			when 'tabs' then 'tabsFieldTemplate'
 			else 'textFieldTemplate'
 
-	if typeof field.label is 'undefined' and field.inputType isnt 'hidden'
-		field.label = field.name?.titleize()
+	if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
+		this.label = this.name?.titleize()
 
-	field.data = context
-	if field.renderIfEmpty or typeof field.value is 'function'
-		return new Handlebars.SafeString Template[template](field)
+	if this.renderIfEmpty or this.value isnt null
+		return Template[template]
 

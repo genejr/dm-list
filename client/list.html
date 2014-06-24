@@ -1,47 +1,41 @@
 <template name="listNav">
-	<!-- {{nav}} -->
-	<div class="row-fluid">
-		<div class='navbar'>
-			<div class='navbar-inner'>
-				<ul class="nav">
-					<li>
-						{{{control_button this.addButton.control_class 'success' 'plus' '' this.addButton.title}}}
-						{{#if this.addButton.label}}
-						<div class='control-button-text'>{{this.addButton.label}}</div>
-						{{/if}}
-					</li>
-					<li class="divider-vertical"></li>
-					<li>
-						{{{control_button this.purgeButton.control_class 'danger' 'remove' '' this.purgeButton.title}}}
-						{{#if this.purgeButton.label}}
-						<div class='control-button-text'>{{this.purgeButton.label}}</div>
-						{{/if}}
-					</li>
-				</ul>
-				<form class="navbar-search pull-right">
-					{{#isolate}}
-					<input type="text" class="search-query {{this.single}}-search-query" placeholder="Search"/>
-					<div class='reset hide {{this.single}}-search'></div>
-					{{/isolate}}
-				</form>
-				<button id='{{this.title}}Help' class='btn btn-warning pull-right help-button'>Help</button>
-			</div>
+	{{> meteorNotices}}
+	<nav class='navbar navbar-default' role='navigation'>
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li>
+					{{#with nav.addButton}}
+						{{#control_button}}{{/control_button}}
+					{{/with}}
+				</li>
+				<li class="divider-vertical"></li>
+				<li>
+					{{#with nav.purgeButton}}
+						{{#control_button}}{{/control_button}}
+					{{/with}}
+				</li>
+			</ul>
+			<form class="navbar-form navbar-right" role='search'>
+				<input type="text" class="search-query {{this.single}}-search-query form-control" placeholder="Search"/>
+				<div class='reset hide {{this.single}}-search'></div>
+			</form>
+			<!-- <button id='{{this.title}}Help' class='btn btn-warning navbar-btn navbar-right help-button'>Help</button> -->
 		</div>
+	</nav>
 </template>
 
 <template name='lists'>
+	<div class="table-responsive">
 		<table class="table list-table">
 			<thead>
 				<tr>
-					{{listColumnHeaders this}}
-					<th class='span3'></th>
+					{{#listColumnHeaders}}{{/listColumnHeaders}}
+					<th>Controls</th>
 				</tr>
 			</thead>
-			<tbody>		
+			<tbody>
 				{{#each lists}}
-					{{#isolate}}
-					{{{listRow this ../this}}}
-					{{/isolate}}
+					{{#listRow}}{{/listRow}}
 				{{/each}}
 			</tbody>
 		</table>
@@ -50,30 +44,31 @@
 
 <template name="_listColumnHeaders">
 	{{#each columnHeaders}}
-		<th class='span3'>{{this}}</th>
+		<th>{{this}}</th>
 	{{/each}}
 </template>
 
 <template name="_listRowColumn">
-	<td class='span3'>
+	<td>
 		<!-- A list row column -->
-		<span>{{this}}</span>
+		<span>{{value}}</span>
 	</td>
 </template>
 
 <template name="_listRow">
+	{{#with data}}
 	<tr class='{{row_css_class}} disabled_{{disabled}}'>
 		{{#each listFields}}
-			{{listRowColumn this ../this}}
+			{{#listRowColumn data=.. field=this.name}}{{/listRowColumn}}
 		{{/each}}
-		<td class="span3">
+		<td class='text-center'>
 			{{#if status}}
 				{{#each rowControls.disabled}}
-					{{> _control_button}}
+					{{#control_button}}{{/control_button}}
 				{{/each}}
 			{{else}}
 				{{#each rowControls.enabled}}
-					{{> _control_button}}
+					{{#control_button}}{{/control_button}}
 				{{/each}}
 			{{/if}}
 			{{#if status}}
@@ -86,22 +81,26 @@
 	{{#if inlineForm}}
 	<tr id='{{_id}}' class='hidden form-row'>
 		<td colspan='{{Count listFields}}'>
-		{{ListForm this}}
-	</td>
+			{{#ListForm data=../data form=form}}{{/ListForm}}
+		</td>
 	</tr>
 	{{/if}}
+	{{/with}}
 </template>
 
 <template name='_listForm'>
-	<form id='{{_id}}_form' class="lower-tab form-horizontal" name='{{form_name}}'>
-		<fieldset>
-			{{#each fields}}
-				{{formField this ../this}}
+	{{#with data}}
+	<form id='{{_id}}_form' class="lower-tab" name='{{form.name}}' role='form'>
+		<div class='row'>
+			{{#each ../fields}}
+				{{#formField}}{{/formField}}
 			{{/each}}
-		</fieldset>
-		<input type='submit' value='Save' class='btn btn-primary'>
-		<button class="close-form btn btn-inverse">Cancel</button>
+		
+			<input type='submit' value='Save' class='btn btn-primary col-md-4 col-md-offset-1'>
+			<button class="close-form btn btn-danger col-md-4 col-md-offset-2">Cancel</button>
+		</div>
 	</form>
+	{{/with}}
 </template>
 
 <template name='listInstructions'>

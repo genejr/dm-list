@@ -1,11 +1,17 @@
 <template name="_control_button">
 	{{#if link}}
-	<a title='{{title}}' data-record="{{data._id}}" href='{{pathFor link data}}' class='pointer btn btn-mini btn-{{style}} control-button {{css}}'>
-		<i class='icon-white icon-{{icon}}'></i>
+	<a role='button' title='{{title}}' data-record="{{data._id}}" href='{{pathFor link data}}' class='pointer btn btn-{{style}} control-button {{css}}'>
+		<span class='glyphicon glyphicon-{{icon}}'></span> 
+    {{#if label}}
+      &nbsp;{{label}}
+    {{/if}}
 	</a>
 	{{else}}
-	<button title='{{title}}' data-record="{{data._id}}" class='pointer {{click}} btn btn-mini btn-{{style}} control-button {{css}}'>
-		<i class='icon-white icon-{{icon}}'></i>
+	<button type='button' title='{{title}}' data-record="{{data._id}}" class='pointer {{click}} btn btn-{{style}} control-button {{css}}'>
+		<span class='glyphicon glyphicon-{{icon}}'></span> 
+    {{#if label}}
+      &nbsp;{{label}}
+    {{/if}}
 	</button>
 	{{/if}}
 </template>

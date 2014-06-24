@@ -1,7 +1,12 @@
 {
-	"name": "dm-lessons-management",
-	"description": "A list and associated forms for managing lesson records",
+	"name": "dm-list",
+	"description": "A list and associated forms for managing records",
 	"homepage": "localhost",
 	"author": "Daniel Morrigan - DigiLord",
-	"version": "0.0.1"
+	"version": "0.0.1",
+  "packages":{
+    "Mesosphere": {},
+    "bootboxjs": {},
+    "sugar": {}
+  }
 }
