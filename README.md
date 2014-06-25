@@ -6,14 +6,9 @@ A list item template that allows one to build a series of lists in a consistent 
 ## Why?
 In designing my application I had an administration view that was a series of tabs.  Each tab was identical in structure to the others visually.  The only real changes were the columns displayed and the form for data entry and editing.  After my second round of changes to the way the list worked I decided it was time to make a re-usable template and associated methods.  dm-list was born.
 
-### Components
-Each of the following sections details a component and how it's used.
+An example project is located at https://github.com/digilord/dm-person.
 
-#### Template
-The template itself is not rendered in the same way that most templates in Meteor are rendered.  This one is called via `Template.list(data)`.
-
-`data` is an object containing the description of the list.
-
+I will be updating the README as soon as I have a few hours to really flesh it out.
 
 
 ## License
