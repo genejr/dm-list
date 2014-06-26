@@ -34,6 +34,14 @@ DMUtils.find = (data, field, needle) ->
   else
     return false
 
+DMUtils.transformDate = (date) ->
+  if not date
+    return '-----'
+  return moment.unix(date).format("DD MMM YYYY HH:mm")
+
+DMUtils.transformUser = (user) ->
+  return user.profile.name
+
 
 @selectOptions = (options) ->
   # @item            = The item that we are passed to interrogate for information
