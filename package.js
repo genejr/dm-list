@@ -17,5 +17,5 @@ Package.on_use(function (api, where) {
 		'client/list.coffee',
 		'client/list.less'
 		],'client');
-	api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee', 'lib/statecountries.coffee'], ['client','server'])
+	api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server'])
 });
