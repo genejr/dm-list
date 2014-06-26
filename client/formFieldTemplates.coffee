@@ -1,5 +1,5 @@
 UI.registerHelper 'formField', () ->
-	if this.inputType is 'selectState'
+	if this.inputType is 'staticDate'
 		console.log this
 
 	template = 
@@ -9,6 +9,7 @@ UI.registerHelper 'formField', () ->
 			when 'password' then 'passwordFieldTemplate'
 			when 'hidden' then 'hiddenFieldTemplate'
 			when 'static' then 'staticFieldTemplate'
+			when 'staticDate' then 'staticFieldTemplate'
 			when 'select' then 'selectFieldTemplate'
 			when 'selectState' then 'selectFieldTemplate'
 			when 'selectCountry' then 'selectFieldTemplate'
@@ -21,6 +22,9 @@ UI.registerHelper 'formField', () ->
 	if this.inputType is 'checkbox'
 			if this.value is 'checked'
 				this.checked = 'checked'
+
+	if this.inputType is 'staticDate'
+		this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
 
 	if this.inputType is 'selectState'
 		states = States.find({}).fetch()

@@ -59,7 +59,7 @@
 	{{#with data}}
 	<tr class='{{row_css_class}} disabled_{{disabled}}'>
 		{{#each listFields}}
-			{{#listRowColumn data=.. field=this.name}}{{/listRowColumn}}
+			{{#listRowColumn data=.. field=this}}{{/listRowColumn}}
 		{{/each}}
 		<td class='text-center'>
 			{{#if status}}

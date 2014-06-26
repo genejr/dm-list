@@ -322,6 +322,7 @@ UI.registerHelper 'listColumnHeaders', () ->
 
 UI.registerHelper 'listRow', () ->
   data = Object.clone(this)
+  console.log data
   context = data.context
   
   data.row_css_class = "#{data._id}-row"
@@ -349,7 +350,13 @@ UI.registerHelper 'listRow', () ->
   return Template._listRow
 
 UI.registerHelper 'listRowColumn', () ->
-  this.value = this.data[this.field]
+  console.log 'listRowColumn', this
+  if this.field.transform and Object.isFunction(this.field.transform)
+    transform = this.field.transform
+    this.value = transform(this.data[this.field.name])
+  else
+    this.value = this.data[this.field.name]
+    
   return Template._listRowColumn
   
 UI.registerHelper 'ListAddEditModal', () ->
