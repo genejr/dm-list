@@ -1,4 +1,7 @@
-Handlebars.registerHelper 'formField', () ->
+UI.registerHelper 'formField', () ->
+	if this.inputType is 'selectState'
+		console.log this
+
 	template = 
 		switch this.inputType
 			when 'text' then 'textFieldTemplate'
@@ -7,11 +10,71 @@ Handlebars.registerHelper 'formField', () ->
 			when 'hidden' then 'hiddenFieldTemplate'
 			when 'static' then 'staticFieldTemplate'
 			when 'select' then 'selectFieldTemplate'
+			when 'selectState' then 'selectFieldTemplate'
+			when 'selectCountry' then 'selectFieldTemplate'
 			when 'address' then 'addressFieldsTemplate'
 			when 'phone' then 'phoneFieldsTemplate'
 			when 'checkbox' then 'checkboxFieldTemplate'
 			when 'tabs' then 'tabsFieldTemplate'
 			else 'textFieldTemplate'
+
+	if this.inputType is 'checkbox'
+			if this.value is 'checked'
+				this.checked = 'checked'
+
+	if this.inputType is 'selectState'
+		states = States.find({}).fetch()
+		_states = []
+		_item =
+			option_label: this.label
+		_states.push _item
+
+		for state in states
+			_item =
+				option_label: state.name
+				option_value: state.iso
+			if this.value is state.iso
+				_item.checked = 'selected'
+			_states.push _item
+		this.values = _states
+
+	if this.inputType is 'selectCountry'
+		countries = Countries.find({}).fetch()
+		_countries = []
+		_item =
+			option_label: this.label
+		_countries.push _item
+
+		for countrie in countries
+			_item =
+				option_label: countrie.name
+				option_value: countrie.iso
+			if this.value is countrie.iso
+				_item.checked = 'selected'
+			_countries.push _item
+		this.values = _countries
+
+	if this.inputType is 'select'
+		new_items = []
+		_item =
+			option_label: this.label
+
+		new_items.push _item
+
+		# First run through the values are just text items in the array.
+		for item in this.static_values
+			if Object.isNumber(item)
+				option_label = item
+			else
+				option_label = item.titleize()
+			_item =
+				option_label: option_label
+				option_value: item
+			if this.value is item.toString()
+					_item.checked = 'selected'
+
+			new_items.push _item
+		this.values = new_items
 
 	if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
 		this.label = this.name?.titleize()

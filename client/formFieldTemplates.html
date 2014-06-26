@@ -8,9 +8,7 @@
 <template name="textAreaFieldTemplate">
 	<div class="form-group col-md-{{size}}">
 		<label for="{{name}}">{{label}}</label>
-		<textarea name="{{name}}" class="form-control" type="text">
-			{{value}}
-		</textarea>
+		<textarea name="{{name}}" class="form-control" type="text">{{value}}</textarea>
 	</div>
 </template>
 
@@ -28,12 +26,12 @@
 </template>
 
 <template name="selectFieldTemplate">
-	<div class="form-group">
+	<div class="form-group col-md-{{size}}">
 		<label for="{{name}}">{{label}}</label>
 		<div class="form-controls">
-			<select name="{{name}}">
-				{{#each value}}
-				<option {{checked}} value='{{_id}}'>{{option_label}}</option>
+			<select name="{{name}}" class='form-control'>
+				{{#each values}}
+				<option {{checked}} value='{{option_value}}'>{{option_label}}</option>
 				{{/each}}
 			</select>
 		</div>
@@ -80,15 +78,12 @@
 </template>
 
 <template name="checkboxFieldTemplate">
-	<div class="form-group">
-		<label for="{{name}}">{{label}}</label>
-		<div class="controls well well-small">
-			{{#each value}}
-			<label class='checkbox'>
-				<input name='{{../name}}' type='checkbox' {{checked}} value='{{_id}}'>
-				{{option_label}}
+	<div class="form-group col-md-{{size}}">
+		<div class="checkbox">
+			<label>
+				<input name='{{name}}' type='checkbox' {{checked}} value='checked'>
+				{{label}}
 			</label>
-			{{/each}}
 		</div>
 	</div>
 </template>

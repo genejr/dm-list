@@ -368,9 +368,11 @@ UI.registerHelper 'ListForm', () ->
   if not Array.isArray(providedFields)
     for key in Object.keys(providedFields)
       options = providedFields[key]
+      # console.log options
       options.name = key
       options.value = data[key]
-      fields.add options
+
+      fields.push options
     this.fields = fields
 
   this.form_name = this.form.name
