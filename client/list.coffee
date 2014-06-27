@@ -86,14 +86,14 @@ Template.lists.helpers
       _listRowEvents[templateEvent] = (event,template) ->
         data = template.data
         single = data.context.single
-        Session.set("edit-#{single}", data._id)
+        Session.set("editDocument", data._id)
         element = $("##{data._id}")
         if element.hasClass('hidden')
           $('.form-row').addClass('hidden')
           element.removeClass('hidden')
         else
           element.addClass('hidden')
-          Session.set("edit-#{single}", null)
+          Session.set("editDocument", null)
         return false
 
     # templateEvent = "click .save-#{data.single}"
@@ -126,7 +126,7 @@ Template.lists.helpers
         single = data.context.single
         element = $("##{data._id}")
         element.addClass('hidden')
-        Session.set("edit-#{single}", null)
+        Session.set("editDocument", null)
         return false
 
     # Add in or override user defined events.
@@ -301,6 +301,13 @@ Template._listRow.helpers
     single = context.single
     if Session.get("selected-#{single}") is this._id
       return 'alert-info'
+
+  editDocument: ->
+    _editId =  Session.get('editDocument')
+    if _editId is this._id
+      return true
+    else
+      return false
 
 
 # Helper for the column headers.  data should have the field

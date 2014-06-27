@@ -81,7 +81,9 @@
 	{{#if inlineForm}}
 	<tr id='{{_id}}' class='hidden form-row'>
 		<td colspan='{{Count listFields}}'>
+      {{#if editDocument}}
 			{{#ListForm data=../data form=form}}{{/ListForm}}
+      {{/if}}
 		</td>
 	</tr>
 	{{/if}}
