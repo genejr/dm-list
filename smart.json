@@ -8,6 +8,7 @@
     "Mesosphere": {},
     "bootboxjs": {},
     "sugar": {},
-    "npm": {}
+    "npm": {},
+    "bootstrap3-datetimepicker": {}
   }
 }

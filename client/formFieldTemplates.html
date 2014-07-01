@@ -5,6 +5,21 @@
 	</div>
 </template>
 
+<template name="dateTimeFieldTemplate">
+	<div class="form-group dm-datetimefield col-md-{{size}}">
+		<label for="{{name}}">{{label}}<span id="{{name}}-error"></span></label>
+		<div class="input-group col-md-12">
+			<div class="input-group date" id="{{name}}-picker">
+				<input name="{{name}}" type="text" class="form-control" value="{{value}}"/>
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+			<span class="input-group-addon btn-{{name}}-clear">Clear</span>
+		</div>
+	</div>
+</template>
+
 <template name="textAreaFieldTemplate">
 	<div class="form-group col-md-{{size}} dm-form-field">
 		<label for="{{name}}" class='control-label'>{{label}}</label>
