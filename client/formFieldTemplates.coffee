@@ -27,6 +27,16 @@ UI.registerHelper 'formField', () ->
   if this.inputType is 'staticDate' or this.inputType is 'dateTime'
     this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
 
+  if this.inputType is 'dateTime'
+    _events = {}
+    templateEvent = "click .btn-#{this.name}-clear" #"click .close-form-#{data.single}"
+    if not DMUtils.find(Template.dateTimeFieldTemplate._events, 'selector', ".btn-#{this.name}-clear")
+      _events[templateEvent] = (event,template) ->
+        element = template.find("input")
+        element.value = ""
+        return false
+    Template.dateTimeFieldTemplate.events(_events)
+
   if this.inputType is 'selectState'
     states = States.find({}).fetch()
     _states = []
@@ -87,18 +97,7 @@ UI.registerHelper 'formField', () ->
   if this.renderIfEmpty or this.value isnt null
     return Template[template]
 
-  if this.inputType is 'dateTime'
-    _events = {}
-    templateEvent = "click .btn-#{this.name}-clear" #"click .close-form-#{data.single}"
-    if not DMUtils.find(Template.dateTimeFieldTemplate._events, 'selector', ".btn-#{this.name}-clear")
-      _events[templateEvent] = (event,template) ->
-        element = template.find("input")
-        element.value("")
-        return false
-    Template.dateTimeFieldTemplate.events(_events)
-
 Template.dateTimeFieldTemplate.rendered = ->
-  console.log 'dateTimeFieldTemplate', this
   $("##{this.data.name}-picker").datetimepicker()
   $("##{this.data.name}-picker").data('DateTimePicker').setDate(moment());
   return
