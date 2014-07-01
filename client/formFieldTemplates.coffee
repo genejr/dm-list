@@ -18,7 +18,7 @@ UI.registerHelper 'formField', () ->
       when 'checkbox' then 'checkboxFieldTemplate'
       when 'tabs' then 'tabsFieldTemplate'
       when 'dateTime' then 'dateTimeFieldTemplate'
-      else 'textFieldTemplate'
+      else 'staticFieldTemplate'
 
   if this.inputType is 'checkbox'
       if this.value is 'checked'
@@ -100,7 +100,6 @@ UI.registerHelper 'formField', () ->
     Template.dateTimeFieldTemplate.events(_events)
 
 Template.dateTimeFieldTemplate.rendered = ->
-  console.log 'dateTimeFieldTemplate', this
   $("##{this.data.name}-picker").datetimepicker()
   $("##{this.data.name}-picker").data('DateTimePicker').setDate(moment());
   return

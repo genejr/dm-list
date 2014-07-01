@@ -87,6 +87,7 @@ Template._lists.helpers
     if not DMUtils.find(Template._listRow._events, 'selector', ".edit-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         data = template.data
+        # console.log data
         if data.context.list.inlineForm is false
           link = "/#{data.context.single.dasherize()}/#{data._id}/edit"
           Router.go(link)
@@ -145,8 +146,10 @@ Template._lists.helpers
 
     if data?.row?.events?
       _.extend(data.row.events, _listRowEvents)
+      # console.log data.row.events
       Template._listRow.events(data.row.events)
     else
+      # console.log _listRowEvents, Template._listRow._events
       Template._listRow.events(_listRowEvents)
 
     # Build up an array of the items to be in the list
@@ -190,19 +193,19 @@ Template.listNav.helpers
     # these events simply define your own in the passed
     # data as nav.events.
     navEvents = {}
-    templateEvent = "click .add-#{data.single.dasherize()}"
 
+    templateEvent = "click .add-#{data.single.dasherize()}"
     if not DMUtils.find(Template.listNav._events, 'selector', ".add-#{data.single.dasherize()}")
       navEvents[templateEvent] = (event, template) ->
         context = template.data
-        # console.log context
         single = context.single
         klass = context.klass
         console.log "You have not defined a custom add handler for #{data.title}.  Using the default."
-        if typeof context.nav.newItemCallback isnt 'undefined'
+        if Object.isFunction(context.nav.newItemCallback)
           _id = context.nav.newItemCallback(context.parent_id)
         else
-          _id = klass.insert()
+          console.warn 'You have not defined a newItemCallback or new route for this package.'
+          return false 
    
         # Show the edit form after a 100ms delay after the item is inserted.
         showForm = () ->
@@ -306,6 +309,7 @@ Template.listNav.helpers
         icon: "remove"
         css: 'navbar-btn'
 
+    Template.listNav.events(navEvents)
     return data.nav
 
 
@@ -322,6 +326,7 @@ Template._listRow.helpers
 
   editDocument: ->
     _editId =  Session.get('editDocument')
+    # console.log 'EDIT!', _editId
     if _editId is this._id
       return true
     else
@@ -378,7 +383,7 @@ UI.registerHelper 'listRow', () ->
 
 
   data.form = context.form
-  data.inlineForm = context.list?.form?.inlineForm
+  data.inlineForm = context.list?.inlineForm
   this.row = data
   this.data = data
 

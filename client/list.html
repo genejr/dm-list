@@ -57,36 +57,36 @@
 
 <template name="_listRow">
 	{{#with data}}
-	<tr class='{{row_css_class}} disabled_{{disabled}}'>
-		{{#each listFields}}
-			{{#listRowColumn data=.. field=this}}{{/listRowColumn}}
-		{{/each}}
-		<td class='text-center'>
-			{{#if status}}
-				{{#each rowControls.disabled}}
-					{{#control_button}}{{/control_button}}
-				{{/each}}
-			{{else}}
-				{{#each rowControls.enabled}}
-					{{#control_button}}{{/control_button}}
-				{{/each}}
-			{{/if}}
-			{{#if status}}
-			<div class='justify inline-block status-{{status}}'>
-			{{status}}
-			</div>
-			{{/if}}
-		</td>
-	</tr>
-	{{#if inlineForm}}
-	<tr id='{{_id}}' class='hidden form-row'>
-		<td colspan='{{Count listFields}}'>
-      {{#if editDocument}}
-			{{#ListForm data=../data form=form}}Hello World{{/ListForm}}
-      {{/if}}
-		</td>
-	</tr>
-	{{/if}}
+  	<tr class='{{row_css_class}} disabled_{{disabled}}'>
+  		{{#each listFields}}
+  			{{#listRowColumn data=.. field=this}}{{/listRowColumn}}
+  		{{/each}}
+  		<td class='text-center'>
+  			{{#if status}}
+  				{{#each rowControls.disabled}}
+  					{{#control_button}}{{/control_button}}
+  				{{/each}}
+  			{{else}}
+  				{{#each rowControls.enabled}}
+  					{{#control_button}}{{/control_button}}
+  				{{/each}}
+  			{{/if}}
+  			{{#if status}}
+  			<div class='justify inline-block status-{{status}}'>
+  			{{status}}
+  			</div>
+  			{{/if}}
+  		</td>
+  	</tr>
+  	{{#if inlineForm}}
+  	<tr id='{{_id}}' class='hidden form-row'>
+  		<td colspan='{{Count listFields}}'>
+        {{#if editDocument}}
+  		    {{#ListForm data=../data form=form}}{{/ListForm}}
+        {{/if}}
+  		</td>
+  	</tr>
+  	{{/if}}
 	{{/with}}
 </template>
 
