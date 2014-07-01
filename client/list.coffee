@@ -149,7 +149,7 @@ Template._lists.helpers
       # console.log data.row.events
       Template._listRow.events(data.row.events)
     else
-      console.log _listRowEvents, Template._listRow._events
+      # console.log _listRowEvents, Template._listRow._events
       Template._listRow.events(_listRowEvents)
 
     # Build up an array of the items to be in the list
@@ -362,7 +362,7 @@ UI.registerHelper 'listColumnHeaders', () ->
 
 UI.registerHelper 'listRow', () ->
   data = Object.clone(this)
-  # console.log "UI.registerHelper 'listRow'", data
+  console.log "UI.registerHelper 'listRow'", data
   context = data.context
   rowControls = context.list.rowControls
   
@@ -382,7 +382,7 @@ UI.registerHelper 'listRow', () ->
     data.rowControls[control] = array
 
 
-  data.form = context.form
+  data.form = context.list.form
   data.inlineForm = context.list?.inlineForm
   this.row = data
   this.data = data
@@ -437,6 +437,7 @@ UI.registerHelper 'ListForm', () ->
     this.fields = fields
 
   this.form_name = form.name
+  console.log this
 
   return Template._listForm
 
