@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
-	api.use(['templating', 'coffeescript', 'less', 'Mesosphere', 'bootstrap-3','ui', 'bootboxjs', 'moment', 'ui'], ['client','server']);
+	api.use(['templating', 'coffeescript', 'less', 'Mesosphere', 'bootstrap-3','ui', 'bootboxjs', 'moment', 'ui','bootstrap3-datetimepicker'], ['client','server']);
 	api.add_files([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',
