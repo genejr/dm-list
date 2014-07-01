@@ -83,5 +83,7 @@ UI.registerHelper 'formField', () ->
 	if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
 		this.label = this.name?.titleize()
 
-	if this.renderIfEmpty or this.value isnt null
+	if this.renderIfEmpty is true
 		return Template[template]
+	else
+	return null

@@ -40,7 +40,10 @@ DMUtils.transformDate = (date) ->
   return moment.unix(date).format("DD MMM YYYY HH:mm")
 
 DMUtils.transformUser = (user) ->
-  return user.profile.name
+  if user?.profile?.name?
+    return user.profile.name
+  else
+    return '-----'
 
 
 @selectOptions = (options) ->
