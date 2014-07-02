@@ -88,7 +88,7 @@ Template._lists.helpers
       _listRowEvents[templateEvent] = (event,template) ->
         data = template.data
         console.log data
-        if data.context.list.inlineForm is false
+        if data.context.formType is 'link'
           link = "/#{data.context.single.dasherize()}/#{data._id}/edit"
           Router.go(link)
           return
@@ -382,8 +382,14 @@ UI.registerHelper 'listRow', () ->
     data.rowControls[control] = array
 
 
-  data.form = context.list.form
-  data.inlineForm = context.list?.inlineForm
+  data.form = context.form
+  
+  # inlineForm stuff for a listRow
+  if context.formType is 'inline'
+    data.inlineForm = true
+  if context.formType?
+    data.inlineForm = true
+
   this.row = data
   this.data = data
 
