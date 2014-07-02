@@ -1,5 +1,5 @@
 UI.registerHelper 'formField', () ->
-  if this.inputType is 'staticDate'
+  if this.inputType is 'static'
     console.log this
 
   template =

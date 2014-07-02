@@ -1,108 +1,111 @@
 <template name="listNav">
-	{{> meteorNotices}}
-	<nav class='navbar navbar-default' role='navigation'>
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
-				<li>
-					{{#with nav.addButton}}
-						{{#control_button}}{{/control_button}}
-					{{/with}}
-				</li>
+  {{> meteorNotices}}
+  <nav class='navbar navbar-default' role='navigation'>
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li>
+          {{#with nav.addButton}}
+            {{#control_button}}{{/control_button}}
+          {{/with}}
+        </li>
         {{#if nav.purgeButton}}
-				<li>
-					{{#with nav.purgeButton}}
-						{{#control_button}}{{/control_button}}
-					{{/with}}
-				</li>
+        <li>
+          {{#with nav.purgeButton}}
+            {{#control_button}}{{/control_button}}
+          {{/with}}
+        </li>
         {{/if}}
-			</ul>
-			<form class="navbar-form navbar-right" role='search'>
-				<input type="text" class="search-query {{this.single}}-search-query form-control" placeholder="Search"/>
-				<div class='reset hide {{this.single}}-search'></div>
-			</form>
-			<!-- <button id='{{this.title}}Help' class='btn btn-warning navbar-btn navbar-right help-button'>Help</button> -->
-		</div>
-	</nav>
+      </ul>
+      <form class="navbar-form navbar-right" role='search'>
+        <input type="text" class="search-query {{this.single}}-search-query form-control" placeholder="Search"/>
+        <div class='reset hide {{this.single}}-search'></div>
+      </form>
+      <!-- <button id='{{this.title}}Help' class='btn btn-warning navbar-btn navbar-right help-button'>Help</button> -->
+    </div>
+  </nav>
 </template>
 
 <template name='_lists'>
-	<div class="table-responsive">
-		<table class="table list-table">
-			<thead>
-				<tr>
-					{{#listColumnHeaders}}{{/listColumnHeaders}}
-					<th>Controls</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{#each lists}}
-					{{#listRow}}{{/listRow}}
-				{{/each}}
-			</tbody>
-		</table>
-	</div>
+  <div class="table-responsive">
+    <table class="table list-table">
+      <thead>
+        <tr>
+          {{#listColumnHeaders}}{{/listColumnHeaders}}
+          <th>Controls</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each lists}}
+          {{#listRow}}{{/listRow}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <template name="_listColumnHeaders">
-	{{#each columnHeaders}}
-		<th>{{this}}</th>
-	{{/each}}
+  {{#each columnHeaders}}
+    <th>{{this}}</th>
+  {{/each}}
 </template>
 
 <template name="_listRowColumn">
-	<td>
-		<span>{{value}}</span>
-	</td>
+  <td>
+    <span>{{value}}</span>
+  </td>
 </template>
 
 <template name="_listRow">
-	{{#with data}}
-  	<tr class='{{row_css_class}} disabled_{{disabled}}'>
-  		{{#each listFields}}
-  			{{#listRowColumn data=.. field=this}}{{/listRowColumn}}
-  		{{/each}}
-  		<td class='text-center'>
-  			{{#if status}}
-  				{{#each rowControls.disabled}}
-  					{{#control_button}}{{/control_button}}
-  				{{/each}}
-  			{{else}}
-  				{{#each rowControls.enabled}}
-  					{{#control_button}}{{/control_button}}
-  				{{/each}}
-  			{{/if}}
-  			{{#if status}}
-  			<div class='justify inline-block status-{{status}}'>
-  			{{status}}
-  			</div>
-  			{{/if}}
-  		</td>
-  	</tr>
-  	{{#if inlineForm}}
-  	<tr id='{{_id}}' class='hidden form-row'>
-  		<td colspan='{{Count listFields}}'>
-        {{#if editDocument}}
-  		    {{#ListForm data=../data form=form}}{{/ListForm}}
+  {{#with data}}
+    <tr class='{{row_css_class}} disabled_{{disabled}}'>
+      {{#each listFields}}
+        {{#listRowColumn data=.. field=this}}{{/listRowColumn}}
+      {{/each}}
+      <td class='text-center'>
+        {{#if status}}
+          {{#each rowControls.disabled}}
+            {{#control_button}}{{/control_button}}
+          {{/each}}
+        {{else}}
+          {{#each rowControls.enabled}}
+            {{#control_button}}{{/control_button}}
+          {{/each}}
         {{/if}}
-  		</td>
-  	</tr>
-  	{{/if}}
-	{{/with}}
+        {{#if status}}
+        <div class='justify inline-block status-{{status}}'>
+        {{status}}
+        </div>
+        {{/if}}
+      </td>
+    </tr>
+    {{#if inlineForm}}
+    <tr id='{{_id}}' class='hidden form-row'>
+      <td colspan='{{Count listFields}}'>
+        {{#if editDocument}}
+          {{#ListForm data=../data form=form}}{{/ListForm}}
+        {{/if}}
+      </td>
+    </tr>
+    {{/if}}
+  {{/with}}
 </template>
 
 <template name='_listForm'>
-  {{> UI.contentBlock}}
-	{{#with data}}
-	<form id='{{_id}}_form' class="{{../css}}" name='{{../form.name}}' role='form'>
-		<div class='row'>
-			{{#each ../fields}}
-				{{#formField}}{{/formField}}
-			{{/each}}
-			<input type='submit' value='Save' class='btn btn-success col-md-4 col-md-offset-1'>
-			<button class="close-form btn btn-danger col-md-4 col-md-offset-2">Cancel</button>
-		</div>
-	</form>
-	{{/with}}
+  <!-- Start a ListForm block or the _listForm template. -->
+  {{#with data}}
+  <form id='{{_id}}_form' class="{{../css}}" name='{{../form.name}}' role='form'>
+    <div class='row'>
+      {{#each ../fields}}
+        {{#formField}}{{/formField}}
+      {{/each}}
+      <!-- Allow the user to add fields to the form when used as a block helper. -->
+      {{> UI.contentBlock}}
+      <input type='submit' value='Save' class='btn btn-success col-md-4 col-md-offset-1'>
+      <button class="close-form btn btn-danger col-md-4 col-md-offset-2">Cancel</button>
+    </div>
+  </form>
+  {{/with}}
+  <!-- End a ListForm block or the _listForm template. -->
 </template>
 
 <template name="disableListItemConfirmation">

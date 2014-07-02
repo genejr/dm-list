@@ -408,19 +408,28 @@ UI.registerHelper 'ListForm', () ->
   data = this.data
   if data.context?.list?.form?
     form = data.context?.list?.form
+    console.log 'First else for ListForm.', form
+  else if data.context?.form
+    form = data.context?.form
+    console.log 'Second else for ListForm.', form
   else
     form = this.form
+    console.log 'Last else for ListForm.', form
+
   fields = []
   
-  if form.css?
+  if form?.css?
     this.css = form.css
   else
     this.css = 'lower-tab'
 
-  if form.fields?
+  if form?.fields?
     providedFields = form.fields
   else
-    providedFields = this.helpers.fields
+    providedFields = []
+
+  if form?.name?
+    this.form_name = form.name
 
   if not Array.isArray(providedFields)
     for key in Object.keys(providedFields)
@@ -436,7 +445,6 @@ UI.registerHelper 'ListForm', () ->
       fields.push options
     this.fields = fields
 
-  this.form_name = form.name
   # console.log this
 
   return Template._listForm
@@ -451,7 +459,24 @@ Template._listForm.events
         element.removeClass('hidden')
       else
         element.addClass('hidden')
-      return false  
+      return false
+  
+  'click .show-created-updated': (event, template) ->
+    event.preventDefault()
+    console.log 'Clicked show-created-updated'
+    show = Session.get('showDateTime')
+    showValue = 
+      switch show
+        when true then false
+        when false then true
+        else true
+
+    Session.set('showDateTime', showValue)
+    return false
+
+Template._listForm.helpers
+  showDateTime: () ->
+    return Session.get('showDateTime')
 
 UI.registerHelper 'Count', (array) ->
   return array.length + 1
