@@ -362,7 +362,7 @@ UI.registerHelper 'listColumnHeaders', () ->
 
 UI.registerHelper 'listRow', () ->
   data = Object.clone(this)
-  console.log "UI.registerHelper 'listRow'", data
+  # console.log "UI.registerHelper 'listRow'", data
   context = data.context
   rowControls = context.list.rowControls
   
@@ -404,7 +404,7 @@ UI.registerHelper 'ListAddEditModal', () ->
   return Template._listAddEditModal
 
 UI.registerHelper 'ListForm', () ->
-  console.log 'ListForm', this
+  # console.log 'ListForm', this
   data = this.data
   if data.context?.list?.form?
     form = data.context?.list?.form
@@ -437,7 +437,7 @@ UI.registerHelper 'ListForm', () ->
     this.fields = fields
 
   this.form_name = form.name
-  console.log this
+  # console.log this
 
   return Template._listForm
 
