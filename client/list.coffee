@@ -383,12 +383,12 @@ UI.registerHelper 'listRow', () ->
 
 
   data.form = context.form
-  
-  # inlineForm stuff for a listRow
-  if context.formType is 'inline'
-    data.inlineForm = true
-  if context.formType?
-    data.inlineForm = true
+  data.inlineForm = 
+    switch context.formType
+      when 'inline' then true
+      when 'full' then false
+      when 'link' then false
+      else true
 
   this.row = data
   this.data = data
@@ -442,7 +442,7 @@ UI.registerHelper 'ListForm', () ->
       options = providedFields[key]
       # console.log options
       options.name = key
-      if Object.isFunction(options.transform)
+      if options.transform and Object.isFunction(options.transform)
         transform = options.transform
         options.value = transform(data[key])
       else
