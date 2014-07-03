@@ -100,6 +100,11 @@ UI.registerHelper 'formField', () ->
   return null
 
 Template.dateTimeFieldTemplate.rendered = ->
-  $("##{this.data.name}-picker").datetimepicker()
-  $("##{this.data.name}-picker").data('DateTimePicker').setDate(moment(this.data.value));
+  datepicker = $("##{this.data.name}-picker")
+  switch this.data.only
+    when 'time' then datepicker.datetimepicker({pickDate: false})
+    when 'date' then datepicker.datetimepicker({pickTime: false})
+    else datepicker.datetimepicker()
+
+  datepicker.data('DateTimePicker').setDate(moment(this.data.value));
   return
