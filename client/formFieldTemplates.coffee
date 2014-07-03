@@ -24,7 +24,7 @@ UI.registerHelper 'formField', () ->
       if this.value is 'checked'
         this.checked = 'checked'
 
-  if this.inputType is 'staticDate' or this.inputType is 'dateTime'
+  if this.inputType is 'staticDate' #or this.inputType is 'dateTime'
     this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
 
   if this.inputType is 'dateTime'
@@ -101,5 +101,5 @@ UI.registerHelper 'formField', () ->
 
 Template.dateTimeFieldTemplate.rendered = ->
   $("##{this.data.name}-picker").datetimepicker()
-  $("##{this.data.name}-picker").data('DateTimePicker').setDate(moment());
+  $("##{this.data.name}-picker").data('DateTimePicker').setDate(moment(this.data.value));
   return
