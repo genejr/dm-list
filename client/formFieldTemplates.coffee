@@ -1,6 +1,6 @@
 UI.registerHelper 'formField', () ->
-  if this.inputType is 'static'
-    console.log this
+  # if this.inputType is 'static'
+  #   console.log this
 
   template =
     switch this.inputType

@@ -19,14 +19,14 @@ Template._lists.helpers
 
     if data?.row?.events?
       Template._listRow.events(data?.row?.events)
-    
+
     if data.row?.helpers?
       Template._listRow.helpers(data.row.helpers)
-    
+
 
     # Define some events that will be available even
     # if the user doesn't define them.  To override
-    # these events simply define your own in the passed 
+    # these events simply define your own in the passed
     # data as list.events.
     listEvents = {}
     _listRowEvents = {}
@@ -54,7 +54,7 @@ Template._lists.helpers
         Are you sure you want to re-enable this #{single}?
         """
         bootbox.confirm confirmation, (confirmed) ->
-          if confirmed 
+          if confirmed
             Klass.update bootbox.itemId, {$set: {status: ''}}
         return false
 
@@ -74,7 +74,7 @@ Template._lists.helpers
           <br>
           <div class='alert alert-error'>
             <h4>Severe Warning</h4>
-            No users will be able to use this #{single}.  This could lead to a service interruption. 
+            No users will be able to use this #{single}.  This could lead to a service interruption.
           </div>
           """
 
@@ -111,10 +111,10 @@ Template._lists.helpers
     #     data = template.data
     #     # Find this templates 'fields'
     #     fields = template.findAll('input, select, textarea')
-         
+
     #     # Setup a new object to store all of the data
     #     field_objects = {};
-         
+
     #     # Loop over the fields with _ placing the fields as attributes
     #     # on the field_objects object.
     #     for field in fields
@@ -124,8 +124,8 @@ Template._lists.helpers
     #         field_objects[name] = value;
 
     #     Meteor.call data.context.mesoObject.method, field_objects
-        
-    #     return false      
+
+    #     return false
 
     templateEvent = "click .close-form-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".close-form-#{data.single.dasherize()}")
@@ -205,8 +205,8 @@ Template.listNav.helpers
           _id = context.nav.newItemCallback(context.parent_id)
         else
           console.warn 'You have not defined a newItemCallback or new route for this package.'
-          return false 
-   
+          return false
+
         # Show the edit form after a 100ms delay after the item is inserted.
         showForm = () ->
           $("##{_id}").removeClass('hidden')
@@ -214,7 +214,7 @@ Template.listNav.helpers
 
         setTimeout showForm, 100, _id
 
-        return false  
+        return false
     # ---------------------------------------------------------------------------------------
 
     templateEvent = "click .purge-disabled-#{data.plural.dasherize()}"
@@ -252,7 +252,7 @@ Template.listNav.helpers
         $(".#{single}-search-query").attr('value','')
         Session.set("#{single}Find",{})
         return false
-        
+
     # ---------------------------------------------------------------------------------------
     # Search
     # At the moment the query for search uses name as the key.  Need to revist this
@@ -269,13 +269,13 @@ Template.listNav.helpers
             key = value.split("=")[0]
             search_string = value.split("=")[1]
             search = {}
-            search[key] = 
+            search[key] =
               $regex: ".*#{search_string}.*"
               $options: "i"
             Session.set("#{data.single.dasherize()}Find", search)
           else if value.has(" ")
             search_terms = value.split " "
-            regex_array = 
+            regex_array =
               for term in search_terms
                  ".*#{term}.*"
             regex = regex_array.join "|"
@@ -348,13 +348,13 @@ UI.registerHelper 'listColumnHeaders', () ->
   # console.log "UI.registerHelper 'listColumnHeaders'", this
   listFields = this.list.listFields
   if Array.isArray(listFields) and listFields.length > 0
-    columnHeaders = 
+    columnHeaders =
       for field in listFields
         if not field.label?
           field.name.titleize()
         else
           field.label
-    
+
     this.columnHeaders = columnHeaders
 
   return Template._listColumnHeaders
@@ -365,7 +365,7 @@ UI.registerHelper 'listRow', () ->
   # console.log "UI.registerHelper 'listRow'", data
   context = data.context
   rowControls = context.list.rowControls
-  
+
   data.row_css_class = "#{data._id}-row"
   data.listFields = context.list.listFields
 
@@ -383,7 +383,7 @@ UI.registerHelper 'listRow', () ->
 
 
   data.form = context.form
-  data.inlineForm = 
+  data.inlineForm =
     switch context.formType
       when 'inline' then true
       when 'full' then false
@@ -403,9 +403,9 @@ UI.registerHelper 'listRowColumn', () ->
     this.value = transform(this.data[this.field.name])
   else
     this.value = this.data[this.field.name]
-    
+
   return Template._listRowColumn
-  
+
 UI.registerHelper 'ListAddEditModal', () ->
   return Template._listAddEditModal
 
@@ -414,16 +414,16 @@ UI.registerHelper 'ListForm', () ->
   data = this.data
   if data.context?.list?.form?
     form = data.context?.list?.form
-    console.log 'First else for ListForm.', form
+    # console.log 'First else for ListForm.', form
   else if data.context?.form
     form = data.context?.form
-    console.log 'Second else for ListForm.', form
+    # console.log 'Second else for ListForm.', form
   else
     form = this.form
-    console.log 'Last else for ListForm.', form
+    # console.log 'Last else for ListForm.', form
 
   fields = []
-  
+
   if form?.css?
     this.css = form.css
   else
@@ -466,12 +466,12 @@ Template._listForm.events
       else
         element.addClass('hidden')
       return false
-  
+
   'click .show-created-updated': (event, template) ->
     event.preventDefault()
     console.log 'Clicked show-created-updated'
     show = Session.get('showDateTime')
-    showValue = 
+    showValue =
       switch show
         when true then false
         when false then true
