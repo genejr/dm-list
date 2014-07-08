@@ -22,14 +22,14 @@
 
 <template name="textAreaFieldTemplate">
 	<div class="form-group col-md-{{size}} dm-form-field">
-		<label for="{{name}}" class='control-label'>{{label}}</label>
+		<label for="{{name}}" class='control-label'>{{label}} <span id='{{name}}-error'></span></label>
 		<textarea name="{{name}}" class="form-control" type="text">{{value}}</textarea>
 	</div>
 </template>
 
 <template name="passwordFieldTemplate">
 	<div class="form-group">
-		<label class='col-md-2 control-label' for="{{name}}">{{label}}</label>
+		<label class='col-md-2 control-label' for="{{name}}">{{label}} <span id='{{name}}-error'></span></label>
 		<div class="col-md-10">
 			<input name="{{name}}" class="form-control" type="password" value="{{value}}"/>
 		</div>
@@ -42,7 +42,7 @@
 
 <template name="selectFieldTemplate">
 	<div class="form-group col-md-{{size}} dm-form-field">
-		<label for="{{name}}" class='control-label'>{{label}}</label>
+		<label for="{{name}}" class='control-label'>{{label}} <span id='{{name}}-error'></span></label>
 		<div class="form-controls">
 			<select name="{{name}}" class='form-control'>
 				{{#each values}}

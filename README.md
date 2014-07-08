@@ -8,7 +8,20 @@ In designing my application I had an administration view that was a series of ta
 
 An example project is located at https://github.com/digilord/dm-person.
 
-I will be updating the README as soon as I have a few hours to really flesh it out.
+## Setup
+A package that uses dm-list needs to have a few things setup in order to work properly.
+
+1. Mesosphere installed
+2. dm-list installed
+
+Mesosphere is used as a form validation tool. I worked with the author to extend Mesosphere to allow for the addition of input type specifiers. This additional sugar allowed for the Mesosphere fields object to be used to create the forms used by dm-list.
+
+### Mesosphere Definition Example
+
+```
+
+```
+
 
 
 ## License
