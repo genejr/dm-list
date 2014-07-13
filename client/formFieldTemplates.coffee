@@ -29,7 +29,7 @@ UI.registerHelper 'formField', () ->
 
   if this.inputType is 'dateTime'
     _events = {}
-    templateEvent = "click .btn-#{this.name}-clear" #"click .close-form-#{data.single}"
+    templateEvent = "click .btn-#{this.name}-clear"
     if not DMUtils.find(Template.dateTimeFieldTemplate._events, 'selector', ".btn-#{this.name}-clear")
       _events[templateEvent] = (event,template) ->
         element = template.find("input")
