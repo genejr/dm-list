@@ -87,7 +87,7 @@ Template._lists.helpers
     if not DMUtils.find(Template._listRow._events, 'selector', ".edit-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         data = template.data
-        console.log data
+        # console.log data
         if data.context.formType is 'link'
           link = "/#{data.context.single.dasherize()}/#{data._id}/edit"
           Router.go(link)
@@ -410,7 +410,7 @@ UI.registerHelper 'ListAddEditModal', () ->
   return Template._listAddEditModal
 
 UI.registerHelper 'ListForm', () ->
-  # console.log 'ListForm', this
+  console.log 'ListForm Start', this
   data = this.data
   if data.context?.list?.form?
     form = data.context?.list?.form
@@ -434,6 +434,11 @@ UI.registerHelper 'ListForm', () ->
   else
     providedFields = []
 
+  if data.formType is 'inline'
+    this.isListForm = true
+  else
+    this.isListForm = false
+
   if form?.name?
     this.form_name = form.name
 
@@ -451,8 +456,18 @@ UI.registerHelper 'ListForm', () ->
       fields.push options
     this.fields = fields
 
-  # console.log this
+  this.formButtons = false
 
+  if form.buttons?
+    _formButtons = []
+    if not Array.isArray(form.buttons)
+      for key of form.buttons
+        options = form.buttons[key]
+        _formButtons.push options
+
+      this.formButtons = _formButtons
+
+  console.log 'ListForm End', this
   return Template._listForm
 
 Template._listForm.events

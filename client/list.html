@@ -100,8 +100,19 @@
       {{/each}}
       <!-- Allow the user to add fields to the form when used as a block helper. -->
       {{> UI.contentBlock}}
-      <input type='submit' value='Save' class='btn btn-success col-md-4 col-md-offset-1'>
-      <button class="close-form btn btn-danger col-md-4 col-md-offset-2">Cancel</button>
+      {{#if ../formButtons}}
+      <div class='btn-toolbar col-md-12 text-center'>
+        {{#each ../formButtons}}
+          {{#control_button}}{{/control_button}}
+        {{/each}}
+      </div>
+      {{else}}
+      <div class='btn-toolbar col-md-12 text-center'>
+        <input type='submit' value='Save' class='btn btn-success'>
+        <input type='cancel' value='Undo Edits' class="close-form btn btn-danger">
+      </div>
+      <!-- <input type='submit' value='Save' class='btn btn-success col-md-10 col-md-offset-1'> -->
+      {{/if}}
     </div>
   </form>
   {{/with}}
@@ -114,7 +125,7 @@
   <br>
   <div class='alert alert-error'>
     <h4>Severe Warning</h4>
-    No users will be able to use this #{single}.  This could lead to a service interruption. 
+    No users will be able to use this #{single}.  This could lead to a service interruption.
   </div>
 </template>
 

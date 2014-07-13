@@ -2,18 +2,26 @@
 	{{#if link}}
 	<a href='{{link}}' class='a-regular-button'>
     <button type='button' title='{{title}}' data-record="{{data._id}}" class='pointer btn btn-{{style}} control-button {{css}}'>
-  		<span class='glyphicon glyphicon-{{icon}}'></span> 
+      {{#if icon}}
+  		<span class='glyphicon glyphicon-{{icon}}'></span>{{#if label}}&nbsp;{{/if}}
+      {{/if}}
       {{#if label}}
-        &nbsp;{{label}}
+        {{label}}
       {{/if}}
   	</button>
   </a>
 	{{else}}
 	<button type='button' title='{{title}}' data-record="{{data._id}}" class='pointer {{click}} btn btn-{{style}} control-button {{css}}'>
-		<span class='glyphicon glyphicon-{{icon}}'></span> 
+    {{#if icon}}
+		<span class='glyphicon glyphicon-{{icon}}'></span>{{#if label}}&nbsp;{{/if}}
+    {{/if}}
     {{#if label}}
-      &nbsp;{{label}}
+      {{label}}
     {{/if}}
 	</button>
 	{{/if}}
+</template>
+
+<template name='controlButtonInputTemplate'>
+  <input type='{{inputType}}' title='{{title}}' value='{{value}}' class='pointer {{click}} btn btn-{{style}} control-button {{css}}'>
 </template>
