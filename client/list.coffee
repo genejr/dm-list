@@ -411,6 +411,32 @@ UI.registerHelper 'ListAddEditModal', () ->
 
 UI.registerHelper 'ListForm', () ->
   console.log 'ListForm Start', this
+
+  listFormEvents =
+    'click .close-form': (event, template) ->
+      event.preventDefault()
+      data = template.data.data
+      element = $("##{data._id}")
+      if element.hasClass('hidden')
+          $('.form-row').addClass('hidden')
+          element.removeClass('hidden')
+        else
+          element.addClass('hidden')
+        return false
+
+    'click .show-created-updated': (event, template) ->
+      event.preventDefault()
+      console.log 'Clicked show-created-updated'
+      show = Session.get('showDateTime')
+      showValue =
+        switch show
+          when true then false
+          when false then true
+          else true
+
+      Session.set('showDateTime', showValue)
+      return false
+
   data = this.data
   if data.context?.list?.form?
     form = data.context?.list?.form
@@ -423,6 +449,14 @@ UI.registerHelper 'ListForm', () ->
     # console.log 'Last else for ListForm.', form
 
   fields = []
+  if form.events?
+    console.log 'Working on _listForm.events'
+
+    events = Object.merge(form.events, listFormEvents)
+    console.log events
+    Template._listForm.events = events
+  else
+    Template._listForm.events = listFormEvents
 
   if form?.css?
     this.css = form.css
@@ -470,30 +504,10 @@ UI.registerHelper 'ListForm', () ->
   console.log 'ListForm End', this
   return Template._listForm
 
-Template._listForm.events
-  'click .close-form': (event, template) ->
-    event.preventDefault()
-    data = template.data.data
-    element = $("##{data._id}")
-    if element.hasClass('hidden')
-        $('.form-row').addClass('hidden')
-        element.removeClass('hidden')
-      else
-        element.addClass('hidden')
-      return false
 
-  'click .show-created-updated': (event, template) ->
-    event.preventDefault()
-    console.log 'Clicked show-created-updated'
-    show = Session.get('showDateTime')
-    showValue =
-      switch show
-        when true then false
-        when false then true
-        else true
 
-    Session.set('showDateTime', showValue)
-    return false
+
+
 
 Template._listForm.helpers
   showDateTime: () ->
