@@ -309,6 +309,15 @@ Template.listNav.helpers
         icon: "remove"
         css: 'navbar-btn'
 
+    # User defined buttons for the navbar.
+    _navButtons = []
+    if data.nav.buttons? and Object.isObject(data.nav.buttons)
+      for _item of data.nav.buttons
+        _button = data.nav.buttons[_item]
+        _navButtons.push _button
+
+      data.nav.buttons = _navButtons
+
     Template.listNav.events(navEvents)
     return data.nav
 
@@ -410,7 +419,7 @@ UI.registerHelper 'ListAddEditModal', () ->
   return Template._listAddEditModal
 
 UI.registerHelper 'ListForm', () ->
-  console.log 'ListForm Start', this
+  # console.log 'ListForm Start', this
 
   listFormEvents =
     'click .close-form': (event, template) ->
@@ -450,10 +459,7 @@ UI.registerHelper 'ListForm', () ->
 
   fields = []
   if form.events?
-    console.log 'Working on _listForm.events'
-
     events = Object.merge(form.events, listFormEvents)
-    console.log events
     Template._listForm.events = events
   else
     Template._listForm.events = listFormEvents
@@ -501,12 +507,8 @@ UI.registerHelper 'ListForm', () ->
 
       this.formButtons = _formButtons
 
-  console.log 'ListForm End', this
+  # console.log 'ListForm End', this
   return Template._listForm
-
-
-
-
 
 
 Template._listForm.helpers

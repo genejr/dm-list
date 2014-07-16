@@ -25,7 +25,10 @@ Package.on_use(function (api, where) {
 		'client/formFieldTemplates.coffee',
 		'client/list.html',
 		'client/list.coffee',
-		'client/list.less'
+		'client/list.less',
+    'client/print.html',
+    'client/print.coffee',
+    'client/print.less'
 		],'client');
 	api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server'])
 });

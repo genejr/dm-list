@@ -15,6 +15,9 @@
           {{/with}}
         </li>
         {{/if}}
+        {{#each nav.buttons}}
+          <li>{{#control_button}}{{/control_button}}</li>
+        {{/each}}
       </ul>
       <form class="navbar-form navbar-right" role='search'>
         <input type="text" class="search-query {{this.single}}-search-query form-control" placeholder="Search"/>
