@@ -1,14 +1,10 @@
 <template name='_printView'>
-  <div class='row'>
-    <h4 class='header-title'>{{reportHeaderTitle}}</h4>
-  <!-- Start a PrintView block or the _printView template. -->
-    <!-- <div class='row'> -->
-      {{#each fields}}
-        {{#formField}}{{/formField}}
-      {{/each}}
-      <!-- Allow the user to add information to the print view when used as a block helper. -->
-      {{> UI.contentBlock}}
-    <!-- </div> -->
+  <div class='print-section'>
+    {{#each fields}}
+      {{#printField}}{{/printField}}
+    {{/each}}
+    <!-- Allow the user to add information to the print view when used as a block helper. -->
+    {{> UI.contentBlock}}
   <!-- End a PrintView block or the _printView template. -->
   </div>
 </template>

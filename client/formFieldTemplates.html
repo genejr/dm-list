@@ -124,3 +124,27 @@
 	</div>
 	{{/each}}
 </template>
+
+<!-- Print Field Templates -->
+<template name="printFieldTemplate">
+  <div class="form-group print-col-{{size}} dm-form-field">
+    <label for="{{name}}" class='control-label'>{{label}}</label>
+    <div class="form-controls">
+      {{value}}
+    </div>
+  </div>
+</template>
+
+<template name="printFieldTextareaTemplate">
+  <div class="form-group print-col-{{size}} dm-form-field dm-print-textarea">
+    <label for="{{name}}" class='control-label'>{{label}}</label>
+    <div class="form-controls">
+      {{value}}
+    </div>
+  </div>
+</template>
+
+
+<template name="printFieldHiddenTemplate">
+  <!-- Value not shown on report -->
+</template>
