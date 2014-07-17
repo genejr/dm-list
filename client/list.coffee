@@ -1,11 +1,3 @@
-# Template._lists.rendered = () ->
-#   data = this.data
-#   editing = Session.get("edit-#{data.single}")
-#   if editing?
-#     element = $("##{editing}")
-#     element.removeClass('hidden')
-
-
 Template._lists.helpers
   lists: () ->
     # console.log 'Template._lists.helpers', this
@@ -310,13 +302,7 @@ Template.listNav.helpers
         css: 'navbar-btn'
 
     # User defined buttons for the navbar.
-    _navButtons = []
-    if data.nav.buttons? and Object.isObject(data.nav.buttons)
-      for _item of data.nav.buttons
-        _button = data.nav.buttons[_item]
-        _navButtons.push _button
-
-      data.nav.buttons = _navButtons
+    data.nav.buttons = DMUtils.ObjectToArray(data.nav.buttons)
 
     Template.listNav.events(navEvents)
     return data.nav

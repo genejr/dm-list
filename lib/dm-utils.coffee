@@ -20,3 +20,19 @@ DMUtils.transformUser = (user) ->
     return user.profile.name
   else
     return '-----'
+
+DMUtils.ObjectToArray = (obj) ->
+  if not obj
+    return []
+
+  if Object.isString(obj)
+    return [obj]
+
+  if Object.isArray(obj)
+    return obj
+
+  _array = []
+  for _item of obj
+    _obj = obj[_item]
+    _array.push _obj
+  return _array
