@@ -108,24 +108,3 @@ Template.dateTimeFieldTemplate.rendered = ->
     datepicker.data('DateTimePicker').setDate(moment(this.data.value));
 
   return
-
-
-UI.registerHelper 'printField', () ->
-  template =
-    switch this.inputType
-      when 'hidden' then 'printFieldHiddenTemplate'
-      when 'textarea' then 'printFieldTextareaTemplate'
-      else 'printFieldTemplate'
-
-  if this.inputType is 'checkbox'
-      if this.value is 'checked'
-        this.checked = 'checked'
-
-  if this.inputType is 'staticDate'
-    this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
-
-
-  if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
-    this.label = this.name?.titleize()
-
-  return Template[template]
