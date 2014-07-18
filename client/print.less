@@ -1,13 +1,12 @@
 // @media print {
   .letter-page {
-    @page {
-      size: 8.5in 14in;
-      margin: 0.5cm;
-    }
-    height: 14in;
     width: 8.5in;
+    height: 14in;
+    margin: 0.25in;
+    box-sizing: border-box;
+
     padding: 0px;
-    font-size: 80%;
+    font-size: 10px;
 
     .report-title {
       margin: 0px;
@@ -42,6 +41,7 @@
 
       .print-section {
         display: block;
+        width: 100%;
         float: left;
       }
 
@@ -50,6 +50,10 @@
 
         .form-group {
           height: 38px;
+
+          label {
+            margin-bottom: 0px;
+          }
         }
       }
 
@@ -71,11 +75,10 @@
       }
     }
     .print-col-1, .print-col-2, .print-col-3, .print-col-4, .print-col-5, .print-col-6, .print-col-7, .print-col-8, .print-col-9, .print-col-10, .print-col-11, .print-col-12 {
-      box-sizing: border-box;
       display: inline-block;
       border: 1px solid #000;
       margin: 0px;
-      min-height: 36px;
+      min-height: 30px;
       padding-left: 2px;
       float: left;
     }
@@ -125,9 +128,13 @@
 // Basic print styles
 // --------------------------------------------------
 // Source: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
-
+@page {
+    size: 8.5in 14in;
+    margin: 0.25in;
+  }
 @media print {
-  .letter-page
+  .letter-page;
+
 
   * {
     text-shadow: none !important;

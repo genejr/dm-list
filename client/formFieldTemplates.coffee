@@ -124,8 +124,8 @@ UI.registerHelper 'printField', () ->
   if this.inputType is 'staticDate'
     this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
 
-  if this.value is null
-    this.value = '&nbsp;'
+  # if this.value is null
+  #   this.value = '&nbsp;'
 
 
   if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
