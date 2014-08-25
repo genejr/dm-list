@@ -33,6 +33,7 @@ Template._lists.helpers
     templateEvent = "click .select-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".select-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
+        event.stopImmediatePropagation()
         data = template.data
         single = data.context.single
         sessionVar = "selected-#{single}"
@@ -46,6 +47,7 @@ Template._lists.helpers
     templateEvent = "click .enable-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".enable-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
+        event.stopImmediatePropagation()
         data = template.data
         single = data.context.single
         Klass = data.context.klass
@@ -61,6 +63,7 @@ Template._lists.helpers
     templateEvent = "click .disable-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".disable-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
+        event.stopImmediatePropagation()
         data = template.data
         single = data.context.single
         Klass = data.context.klass
@@ -86,6 +89,7 @@ Template._lists.helpers
     templateEvent = "click .edit-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".edit-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
+        event.stopImmediatePropagation()
         data = template.data
         # console.log data
         if data.context.formType is 'link'
@@ -130,6 +134,7 @@ Template._lists.helpers
     templateEvent = "click .close-form-#{data.single.dasherize()}"
     if not DMUtils.find(Template._listRow._events, 'selector', ".close-form-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
+        event.stopImmediatePropagation()
         data = template.data
         single = data.context.single
         element = $("##{data._id}")
@@ -192,6 +197,7 @@ Template.listNav.helpers
     templateEvent = "click .add-#{data.single.dasherize()}"
     if not DMUtils.find(Template.listNav._events, 'selector', ".add-#{data.single.dasherize()}")
       navEvents[templateEvent] = (event, template) ->
+        event.stopImmediatePropagation()
         context = template.data
         single = context.single
         klass = context.klass
@@ -215,6 +221,7 @@ Template.listNav.helpers
     templateEvent = "click .purge-disabled-#{data.plural.dasherize()}"
     if not DMUtils.find(Template.listNav._events, 'selector', ".purge-disabled-#{data.plural.dasherize()}")
       navEvents[templateEvent] = (event, template) ->
+        event.stopImmediatePropagation()
         context = template.data
         plural = context.plural
         console.log "You have not defined a custom purge handler for #{data.title}.  Using the default."
@@ -241,6 +248,7 @@ Template.listNav.helpers
     templateEvent = "click .reset"
     if not DMUtils.find(Template.listNav._events, 'selector', ".reset")
       navEvents[templateEvent] = (event, template) ->
+        event.stopImmediatePropagation()
         context = template.data
         single = context.single
         $(".#{single}-search").addClass('hide')
@@ -255,6 +263,7 @@ Template.listNav.helpers
     templateEvent = "keyup .#{data.single.dasherize()}-search-query"
     if not DMUtils.find(Template.listNav._events, 'selector', ".#{data.single.dasherize()}-search-query")
       navEvents[templateEvent] = (event, template) ->
+        event.stopImmediatePropagation()
         context = template.data
         single = context.single
         value = event.target.value
@@ -423,6 +432,7 @@ UI.registerHelper 'ListForm', () ->
 
   listFormEvents =
     'click .close-form': (event, template) ->
+      event.stopImmediatePropagation()
       event.preventDefault()
       data = template.data.data
       element = $("##{data._id}")
@@ -434,6 +444,7 @@ UI.registerHelper 'ListForm', () ->
         return false
 
     'click .show-created-updated': (event, template) ->
+      event.stopImmediatePropagation()
       event.preventDefault()
       console.log 'Clicked show-created-updated'
       show = Session.get('showDateTime')
