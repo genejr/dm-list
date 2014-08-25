@@ -183,11 +183,6 @@ Template.listNav.helpers
     singleTitle = single.titleize()
     pluralTitle = plural.titleize()
 
-    if data.nav?.events?
-      Template.listNav.events(data.nav.events)
-    else
-      Template.listNav.events(navEvents)
-
     # Define some events that will be available even
     # if the user doesn't define them.  To override
     # these events simply define your own in the passed
@@ -318,7 +313,12 @@ Template.listNav.helpers
 
       data.nav.buttons = _navButtons
 
-    Template.listNav.events(navEvents)
+    if data.nav?.events?
+      Object.merge(navEvents, data.nav.events)
+      Template.listNav.events(navEvents)
+    else
+      Template.listNav.events(navEvents)
+      
     return data.nav
 
 
