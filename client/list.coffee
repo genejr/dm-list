@@ -31,7 +31,7 @@ Template._lists.helpers
     listEvents = {}
     _listRowEvents = {}
     templateEvent = "click .select-#{data.single.dasherize()}"
-    if not DMUtils.find(Template._listRow._events, 'selector', ".select-#{data.single.dasherize()}")
+    if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".select-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         event.stopImmediatePropagation()
         data = template.data
@@ -45,7 +45,7 @@ Template._lists.helpers
         return false
 
     templateEvent = "click .enable-#{data.single.dasherize()}"
-    if not DMUtils.find(Template._listRow._events, 'selector', ".enable-#{data.single.dasherize()}")
+    if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".enable-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         event.stopImmediatePropagation()
         data = template.data
@@ -61,7 +61,7 @@ Template._lists.helpers
         return false
 
     templateEvent = "click .disable-#{data.single.dasherize()}"
-    if not DMUtils.find(Template._listRow._events, 'selector', ".disable-#{data.single.dasherize()}")
+    if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".disable-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         event.stopImmediatePropagation()
         data = template.data
@@ -87,7 +87,7 @@ Template._lists.helpers
         return false
 
     templateEvent = "click .edit-#{data.single.dasherize()}"
-    if not DMUtils.find(Template._listRow._events, 'selector', ".edit-#{data.single.dasherize()}")
+    if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".edit-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         event.stopImmediatePropagation()
         data = template.data
@@ -109,7 +109,7 @@ Template._lists.helpers
         return false
 
     # templateEvent = "click .save-#{data.single}"
-    # if not DMUtils.find(Template._listRow._events, 'selector', ".save-#{data.single}")
+    # if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".save-#{data.single}")
     #   _listRowEvents[templateEvent] = (event,template) ->
     #     event.preventDefault()
     #     data = template.data
@@ -132,7 +132,7 @@ Template._lists.helpers
     #     return false
 
     templateEvent = "click .close-form-#{data.single.dasherize()}"
-    if not DMUtils.find(Template._listRow._events, 'selector', ".close-form-#{data.single.dasherize()}")
+    if not DMUtils.find(Template._listRow.__eventMaps, 'selector', ".close-form-#{data.single.dasherize()}")
       _listRowEvents[templateEvent] = (event,template) ->
         event.stopImmediatePropagation()
         data = template.data
@@ -154,7 +154,7 @@ Template._lists.helpers
       # console.log data.row.events
       Template._listRow.events(data.row.events)
     else
-      # console.log _listRowEvents, Template._listRow._events
+      # console.log _listRowEvents, Template._listRow.__eventMaps
       Template._listRow.events(_listRowEvents)
 
     # Build up an array of the items to be in the list
@@ -195,7 +195,7 @@ Template.listNav.helpers
     navEvents = {}
 
     templateEvent = "click .add-#{data.single.dasherize()}"
-    if not DMUtils.find(Template.listNav._events, 'selector', ".add-#{data.single.dasherize()}")
+    if not DMUtils.find(Template.listNav.__eventMaps, 'selector', ".add-#{data.single.dasherize()}")
       navEvents[templateEvent] = (event, template) ->
         event.stopImmediatePropagation()
         context = template.data
@@ -219,7 +219,7 @@ Template.listNav.helpers
     # ---------------------------------------------------------------------------------------
 
     templateEvent = "click .purge-disabled-#{data.plural.dasherize()}"
-    if not DMUtils.find(Template.listNav._events, 'selector', ".purge-disabled-#{data.plural.dasherize()}")
+    if not DMUtils.find(Template.listNav.__eventMaps, 'selector', ".purge-disabled-#{data.plural.dasherize()}")
       navEvents[templateEvent] = (event, template) ->
         event.stopImmediatePropagation()
         context = template.data
@@ -246,7 +246,7 @@ Template.listNav.helpers
     # ---------------------------------------------------------------------------------------
 
     templateEvent = "click .reset"
-    if not DMUtils.find(Template.listNav._events, 'selector', ".reset")
+    if not DMUtils.find(Template.listNav.__eventMaps, 'selector', ".reset")
       navEvents[templateEvent] = (event, template) ->
         event.stopImmediatePropagation()
         context = template.data
@@ -261,7 +261,7 @@ Template.listNav.helpers
     # At the moment the query for search uses name as the key.  Need to revist this
     # to make it so that the package user can set what the default
     templateEvent = "keyup .#{data.single.dasherize()}-search-query"
-    if not DMUtils.find(Template.listNav._events, 'selector', ".#{data.single.dasherize()}-search-query")
+    if not DMUtils.find(Template.listNav.__eventMaps, 'selector', ".#{data.single.dasherize()}-search-query")
       navEvents[templateEvent] = (event, template) ->
         event.stopImmediatePropagation()
         context = template.data
@@ -322,12 +322,14 @@ Template.listNav.helpers
 
       data.nav.buttons = _navButtons
 
+    console.log singleTitle, data.nav.events
     if data.nav?.events?
       Object.merge(navEvents, data.nav.events)
       Template.listNav.events(navEvents)
     else
       Template.listNav.events(navEvents)
-      
+    
+    console.log data.nav
     return data.nav
 
 
