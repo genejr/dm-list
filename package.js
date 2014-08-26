@@ -11,10 +11,10 @@ Package.on_use(function (api) {
 	api.use('coffeescript')
 	api.use('less')
 	api.use('copleykj:mesosphere')
-	api.use('mizzao:bootstrap-3')
-	api.use('mizzao:bootboxjs')
-	api.use('mrt:moment')
-	api.use('tsega:bootstrap3-datetimepicker')
+	api.use('mizzao:bootstrap-3@3.2.0')
+	api.use('mizzao:bootboxjs@4.3.0')
+	api.use('mrt:moment@2.8.1')
+	api.use('tsega:bootstrap3-datetimepicker@0.2.0')
 	
 	api.use('bootstrap3-datetimepicker')
 	api.add_files([
