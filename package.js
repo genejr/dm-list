@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A list and associated forms for managing list records",
-  version: "1.0.0",
+  version: "1.1.0",
   git: "https://github.com/digilord/dm-list"
 });
 
