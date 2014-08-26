@@ -1,19 +1,22 @@
 Package.describe({
-  summary: "A list and associated forms for managing list records"
+  summary: "A list and associated forms for managing list records",
+  version: "1.0.0",
+  git: "https://github.com/digilord/dm-list"
 });
 
-Package.on_use(function (api, where) {
-	api.use(['templating',
-	'coffeescript',
-	'less',
-	'Mesosphere',
-	'bootstrap-3',
-	'ui',
-	'bootboxjs',
-	'moment',
-	'ui',
-	'bootstrap3-datetimepicker'
-	], ['client','server']);
+Package.on_use(function (api) {
+	api.versionsFrom('METEOR@0.9.0')
+	api.use('templating')
+	api.use('ui')
+	api.use('coffeescript')
+	api.use('less')
+	api.use('copleykj:mesosphere')
+	api.use('mizzao:bootstrap-3')
+	api.use('mizzao:bootboxjs')
+	api.use('mrt:moment')
+	api.use('tsega:bootstrap3-datetimepicker')
+	
+	api.use('bootstrap3-datetimepicker')
 	api.add_files([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',

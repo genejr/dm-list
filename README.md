@@ -11,12 +11,12 @@ An example project is located at https://github.com/digilord/dm-person.
 ## Setup
 A package that uses dm-list needs to have a few things setup in order to work properly.
 
-1. Mesosphere installed
+1. mesosphere installed
 2. dm-list installed
 
-Mesosphere is used as a form validation tool. I worked with the author to extend Mesosphere to allow for the addition of input type specifiers. This additional sugar allowed for the Mesosphere fields object to be used to create the forms used by dm-list.
+mesosphere is used as a form validation tool. I worked with the author to extend mesosphere to allow for the addition of input type specifiers. This additional sugar allowed for the mesosphere fields object to be used to create the forms used by dm-list.
 
-### Mesosphere Definition Example
+### mesosphere Definition Example
 
 ```
 
