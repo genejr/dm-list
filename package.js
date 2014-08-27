@@ -11,7 +11,7 @@ Package.on_use(function (api) {
 	api.use('ui')
 	api.use('coffeescript')
 	api.use('less')
-	api.use('copleykj:mesosphere')
+	api.use('copleykj:mesosphere@0.1.10')
 	api.use('mizzao:bootstrap-3@3.2.0')
 	api.use('mizzao:bootboxjs@4.3.0')
 	api.use('mrt:moment@2.8.1')
