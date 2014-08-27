@@ -16,7 +16,6 @@ Package.on_use(function (api) {
 	api.use('mrt:moment@2.8.1')
 	api.use('tsega:bootstrap3-datetimepicker@0.2.0')
 	
-	api.use('bootstrap3-datetimepicker')
 	api.add_files([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',
