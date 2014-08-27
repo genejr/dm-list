@@ -1,8 +1,28 @@
 {
   "dependencies": [
     [
+      "application-configuration",
+      "1.0.0"
+    ],
+    [
+      "binary-heap",
+      "1.0.0"
+    ],
+    [
       "blaze",
       "1.0.3"
+    ],
+    [
+      "blaze-tools",
+      "1.0.0"
+    ],
+    [
+      "callback-hook",
+      "1.0.0"
+    ],
+    [
+      "check",
+      "1.0.0"
     ],
     [
       "coffeescript",
@@ -10,7 +30,7 @@
     ],
     [
       "copleykj:mesosphere",
-      "0.0.1"
+      "0.1.10"
     ],
     [
       "deps",
@@ -21,12 +41,20 @@
       "1.0.0"
     ],
     [
+      "follower-livedata",
+      "1.0.0"
+    ],
+    [
       "geojson-utils",
       "1.0.0"
     ],
     [
-      "htmljs",
+      "html-tools",
       "1.0.0"
+    ],
+    [
+      "htmljs",
+      "1.0.0-cordova1"
     ],
     [
       "id-map",
@@ -45,12 +73,24 @@
       "1.0.5"
     ],
     [
+      "livedata",
+      "1.0.0"
+    ],
+    [
+      "logging",
+      "1.0.0"
+    ],
+    [
       "meteor",
       "1.0.2"
     ],
     [
+      "minifiers",
+      "1.0.0"
+    ],
+    [
       "minimongo",
-      "1.0.1"
+      "1.0.1-cordova1"
     ],
     [
       "mizzao:bootboxjs",
@@ -61,8 +101,16 @@
       "3.2.0"
     ],
     [
+      "mongo-livedata",
+      "1.0.0"
+    ],
+    [
       "mrt:moment",
       "2.8.1"
+    ],
+    [
+      "mrt:underscore-string-latest",
+      "2.3.3"
     ],
     [
       "observe-sequence",
@@ -74,6 +122,22 @@
     ],
     [
       "random",
+      "1.0.0"
+    ],
+    [
+      "retry",
+      "1.0.0"
+    ],
+    [
+      "routepolicy",
+      "1.0.0-cordova1"
+    ],
+    [
+      "spacebars",
+      "1.0.0"
+    ],
+    [
+      "spacebars-compiler",
       "1.0.0"
     ],
     [
@@ -90,6 +154,10 @@
     ],
     [
       "underscore",
+      "1.0.0"
+    ],
+    [
+      "webapp",
       "1.0.0"
     ]
   ],
