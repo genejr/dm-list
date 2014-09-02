@@ -322,14 +322,14 @@ Template.listNav.helpers
 
       data.nav.buttons = _navButtons
 
-    console.log singleTitle, data.nav.events
+    # console.log singleTitle, data.nav.events
     if data.nav?.events?
       Object.merge(navEvents, data.nav.events)
       Template.listNav.events(navEvents)
     else
       Template.listNav.events(navEvents)
     
-    console.log data.nav
+    # console.log data.nav
     return data.nav
 
 
