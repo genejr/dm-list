@@ -1,6 +1,6 @@
 UI.registerHelper "control_button", () ->
-  if this.style is 'default'
-    console.log this
+  # if this.style is 'default'
+  #   console.log this
 
   template =
     switch this.buttonType
