@@ -54,3 +54,5 @@ By donating you are supporting this package and its developer so that he may con
 [gittip-badge]: https://rawgithub.com/digilord/gittip-badge/master/dist/gittip.png
 [digilord]: https://www.gittip.com/digilord/
 
+[![endorse](https://api.coderwall.com/digilord/endorsecount.png)](https://coderwall.com/digilord)
+

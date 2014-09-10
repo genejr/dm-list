@@ -1,6 +1,6 @@
 UI.registerHelper 'formField', () ->
-  # if this.inputType is 'static'
-  #   console.log this
+  # if this.inputType is 'hidden'
+  #   console.log 'hidden',this
 
   template =
     switch this.inputType
@@ -94,10 +94,11 @@ UI.registerHelper 'formField', () ->
   if typeof this.label is 'undefined' and this.inputType isnt 'hidden'
     this.label = this.name?.titleize()
 
-  if this.renderIfEmpty is true
+  if this.renderIfEmpty is true and not this.value?
+    this.value = ''
     return Template[template]
   else
-  return null
+    return Template[template]
 
 Template.dateTimeFieldTemplate.rendered = ->
   datepicker = $("##{this.data.name}-picker")
