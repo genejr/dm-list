@@ -418,6 +418,7 @@ UI.registerHelper 'listRow', () ->
 
 UI.registerHelper 'listRowColumn', () ->
   # console.log 'listRowColumn', this
+  console.log 'listRowColumn: ', this
   if this.field.transform and Object.isFunction(this.field.transform)
     transform = this.field.transform
     this.value = transform(this.data[this.field.name])

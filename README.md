@@ -1,29 +1,54 @@
-dm-list
+digilord:list
 =======
 
 A list item template that allows one to build a series of lists in a consistent manner.
 
 ## Why?
-In designing my application I had an administration view that was a series of tabs.  Each tab was identical in structure to the others visually.  The only real changes were the columns displayed and the form for data entry and editing.  After my second round of changes to the way the list worked I decided it was time to make a re-usable template and associated methods.  dm-list was born.
+In designing my application I had an administration view that was a series of tabs.  Each tab was identical in structure to the others visually.  The only real changes were the columns displayed and the form for data entry and editing.  After my second round of changes to the way the list worked I decided it was time to make a re-usable template and associated methods.  digilord:list was born.
 
-An example project is located at https://github.com/digilord/dm-person.
+An example project is located in the example folder in the project repository.
 
 ## Setup
-A package that uses dm-list needs to have a few things setup in order to work properly.
 
-1. mesosphere installed
-2. dm-list installed
 
-mesosphere is used as a form validation tool. I worked with the author to extend mesosphere to allow for the addition of input type specifiers. This additional sugar allowed for the mesosphere fields object to be used to create the forms used by dm-list.
+### Field Types
+__All examples below are in CoffeeScript. Why? Because it's what I use.__
 
-### mesosphere Definition Example
+All field types have a few base options available.
+
+ - label
+ - value
+ - size
+ 
+---
+
+#### select
+ - options - This is for the values in the select box. The data can come from an array or collection.
+ - display_attribute - Inside the options that come from a collection use this attribute name to determine what is displayed.
+ 
+Example with an Array:
 
 ```
+	month:
+        required: true
+        inputType: 'select'
+        options: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep', 'Nov', 'Dec']
+        size: 6
+```
 
+Example with a collection:
+
+```
+	countries:
+        required: true
+        inputType: 'select'
+        options: Countries.find({})
+        display_attribute: 'name'        
+        size: 6
 ```
 
 
-
+---
 ## License
 The MIT License (MIT)
 

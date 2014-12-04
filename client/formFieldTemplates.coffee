@@ -69,23 +69,44 @@ UI.registerHelper 'formField', () ->
       _countries.push _item
     this.values = _countries
 
+  # select input type
   if this.inputType is 'select'
     new_items = []
     _item =
       option_label: this.label
 
     new_items.push _item
+    if this.static_values
+      options = this.static_values
+    if this.options
+      options = this.options
+
+    if options.fetch?
+      options = options.fetch()
 
     # First run through the values are just text items in the array.
-    for item in this.static_values
+    for item in options
       if Object.isNumber(item)
         option_label = item
-      else
+      else if Object.isString(item)
         option_label = item.titleize()
+      
+      if item._id?
+        option_value = item._id
+      else
+        option_value = item
+
+      if this.display_attribute
+        option_label = item[this.display_attribute].titleize()
+
       _item =
         option_label: option_label
-        option_value: item
-      if this.value is item.toString()
+        option_value: option_value
+      
+      if item._id? and this.value is item._id
+        _item.checked = 'selected'
+
+      else if this.value is item.toString()
           _item.checked = 'selected'
 
       new_items.push _item
