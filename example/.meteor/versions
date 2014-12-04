@@ -17,6 +17,7 @@ ctl-helper@1.0.4
 ctl@1.0.2
 ddp@1.0.11
 deps@1.0.5
+digilord:countries@1.0.1
 digilord:list@1.1.4
 digilord:sugarjs@1.4.1
 ejson@1.0.4

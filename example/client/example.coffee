@@ -12,7 +12,7 @@ Meteor.subscribe('countries')
   formType: 'inline'
 
   form:
-    fields: 
+    fields:
       _id:
         required: true
         inputType: 'hidden'
@@ -32,11 +32,13 @@ Meteor.subscribe('countries')
         size: 6
       month:
         required: true
+        label: "Month - Array Backed"
         inputType: 'select'
         options: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep', 'Nov', 'Dec']
         size: 6
       countries:
         required: true
+        label: "Countries - Collection Backed"
         inputType: 'select'
         options: Countries.find()
         display_attribute: 'name'
@@ -82,10 +84,14 @@ Meteor.subscribe('countries')
     listFields:[
       {name: 'fullName'}
       {name: 'month'}
-      {name: 'countries', 
+      {name: 'countries',
       label: 'Country',
       transform: (_id) ->
-        Countries.findOne({_id: _id}).name
+        country = Countries.findOne({_id: _id})
+        if country?
+          return country.name
+        else
+          return ""
       }
     ]
 
