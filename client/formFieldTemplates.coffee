@@ -18,6 +18,7 @@ UI.registerHelper 'formField', () ->
       when 'checkbox' then 'checkboxFieldTemplate'
       when 'tabs' then 'tabsFieldTemplate'
       when 'dateTime' then 'dateTimeFieldTemplate'
+      when 'hrule' then 'hrFieldTemplate'
       else 'staticFieldTemplate'
 
   if this.inputType is 'checkbox'

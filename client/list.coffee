@@ -419,11 +419,20 @@ UI.registerHelper 'listRow', () ->
 UI.registerHelper 'listRowColumn', () ->
   # console.log 'listRowColumn', this
   console.log 'listRowColumn: ', this
+  inputType = this.data.form.fields[this.field.name]?.inputType
+
   if this.field.transform and Object.isFunction(this.field.transform)
     transform = this.field.transform
     this.value = transform(this.data[this.field.name])
   else
     this.value = this.data[this.field.name]
+
+  if inputType is 'checkbox' and this.value is 'checked'
+    this.isCheckbox = true
+    this.isChecked = true
+  else if inputType is 'checkbox' and this.value is null
+    this.isCheckbox = true
+    this.isChecked = false
 
   return Template._listRowColumn
 

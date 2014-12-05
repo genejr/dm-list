@@ -16,6 +16,7 @@ __All examples below are in CoffeeScript. Why? Because it's what I use.__
 
 All field types have a few base options available.
 
+ - required
  - label
  - value
  - size
@@ -46,6 +47,29 @@ Example with a collection:
         display_attribute: 'name'        
         size: 6
 ```
+
+#### checkbox
+A checkbox receives its label from the field name.
+
+```
+	blue:
+        required: true
+        inputType: 'checkbox'
+        size: 2
+```
+
+#### hrule
+ - cssClass - You should know what to put here :)
+
+A horizontal rule added to the interface. You can name the field anything. 
+
+```
+	hrule:
+		inputType: 'hrule'
+		size: 6
+		cssClass: 'Anything'
+```
+
 
 
 ---

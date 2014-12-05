@@ -54,7 +54,15 @@
 
 <template name="_listRowColumn">
   <td>
+    {{#if isCheckbox}}
+      {{#if isChecked}}
+      <span class='glyphicon glyphicon-ok'></span>
+      {{else}}
+      <span></span>
+      {{/if}}
+    {{else}}
     <span>{{value}}</span>
+    {{/if}}
   </td>
 </template>
 

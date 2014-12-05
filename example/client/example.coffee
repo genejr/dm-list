@@ -30,6 +30,11 @@ Meteor.subscribe('countries')
         inputType: 'text'
         renderIfEmpty: true
         size: 6
+
+      hrule:
+        inputType: 'hrule'
+        size: 12
+        cssClass: 'AnythingCool'
       month:
         required: true
         label: "Month - Array Backed"
@@ -43,6 +48,11 @@ Meteor.subscribe('countries')
         options: Countries.find()
         display_attribute: 'name'
         size: 6
+
+      blue:
+        required: true
+        inputType: 'checkbox'
+        size: 2
 
     name: 'PersonAddEditForm'
 
@@ -84,6 +94,7 @@ Meteor.subscribe('countries')
     listFields:[
       {name: 'fullName'}
       {name: 'month'}
+      {name: 'blue'}
       {name: 'countries',
       label: 'Country',
       transform: (_id) ->
