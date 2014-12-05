@@ -21,7 +21,7 @@ UI.registerHelper 'formField', () ->
       when 'hrule' then 'hrFieldTemplate'
       else 'staticFieldTemplate'
 
-  if not this.size?
+  if not this.size? and not this.inputType is 'hidden'
       throw new Meteor.Error 'size required', "#{this.inputType} requires a size between 1-12"
 
   if this.inputType is 'checkbox'
