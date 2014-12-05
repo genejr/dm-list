@@ -19,7 +19,7 @@ All field types have a few base options available.
  - required
  - label
  - value
- - size
+ - size - Required and must be between 1 and 12. This corresponds to the 12 columns in a bootstrap layout.
  
 ---
 
