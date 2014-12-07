@@ -19,6 +19,7 @@ UI.registerHelper 'formField', () ->
       when 'tabs' then 'tabsFieldTemplate'
       when 'dateTime' then 'dateTimeFieldTemplate'
       when 'hrule' then 'hrFieldTemplate'
+      when 'xeditable' then 'xeditableFieldTemplate'
       else 'staticFieldTemplate'
 
   if not this.size? and not this.inputType is 'hidden'
@@ -124,6 +125,26 @@ UI.registerHelper 'formField', () ->
     return Template[template]
   else
     return Template[template]
+
+Template.xeditableFieldTemplate.rendered = ->
+  xeditable = $("##{this.data.name}-xeditable")
+  xeditable.wysihtml5()
+  # xeditable.wysihtml5({
+  #   # success: (response, newValue) ->
+  #   #   console.log "New Value: ", newValue
+  #     # <do something with newValue - usually a collection.update call>
+  #   "font-styles": true   #//Font styling, e.g. h1, h2, etc. Default true
+  #   "emphasis": true      #//Italics, bold, etc. Default true
+  #   "lists": true         #//(Un)ordered lists, e.g. Bullets, Numbers. Default true
+  #   "html": false         #//Button which allows you to edit the generated HTML. Default false
+  #   "link": true          #//Button to insert a link. Default true
+  #   "image": true         #//Button to insert an image. Default true,
+  #   "color": false        #//Button to change color of font
+  #   placement: "auto top"
+  # });
+
+
+
 
 Template.dateTimeFieldTemplate.rendered = ->
   datepicker = $("##{this.data.name}-picker")

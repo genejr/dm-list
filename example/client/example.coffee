@@ -52,7 +52,12 @@ Meteor.subscribe('countries')
       blue:
         required: true
         inputType: 'checkbox'
-        size: 2
+        size: 12
+
+      text:
+        required: false
+        inputType: 'xeditable'
+        size: 12
 
     name: 'PersonAddEditForm'
 

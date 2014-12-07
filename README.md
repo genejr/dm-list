@@ -70,6 +70,8 @@ A horizontal rule added to the interface. You can name the field anything.
 		cssClass: 'Anything'
 ```
 
+#### xeditable
+
 
 
 ---
