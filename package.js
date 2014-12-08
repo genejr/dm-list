@@ -16,8 +16,9 @@ Package.on_use(function (api) {
 	api.use('mizzao:bootboxjs@4.3.0')
 	api.use('mrt:moment@2.8.1')
 	api.use('tsega:bootstrap3-datetimepicker@0.2.0')
-  api.use('jimmiebtlr:bootstrap-wysihtml5@0.3.2')
-	
+  api.use('mrt:bootstrap3-wysihtml5@0.3.3')
+
+  api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server']);
 	api.add_files([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',
@@ -34,5 +35,6 @@ Package.on_use(function (api) {
     'client/print.coffee',
     'client/print.less'
 		],'client');
-	api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server'])
+
+  // api.export(['Handlebars','wysihtml5']);
 });

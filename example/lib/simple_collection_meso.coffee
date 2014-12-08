@@ -24,5 +24,9 @@
     firstName:
       required: true
 
+    blue:
+      required: false
+      default: false
+
 
 Mesosphere personFormDescription

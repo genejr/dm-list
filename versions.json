@@ -73,10 +73,6 @@
       "1.0.1"
     ],
     [
-      "jimmiebtlr:bootstrap-wysihtml5",
-      "0.3.2"
-    ],
-    [
       "jquery",
       "1.0.1"
     ],
@@ -110,11 +106,15 @@
     ],
     [
       "mizzao:bootstrap-3",
-      "3.2.0_1"
+      "3.2.0"
     ],
     [
       "mongo",
       "1.0.8"
+    ],
+    [
+      "mrt:bootstrap3-wysihtml5",
+      "0.3.3"
     ],
     [
       "mrt:moment",

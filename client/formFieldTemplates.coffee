@@ -19,7 +19,7 @@ UI.registerHelper 'formField', () ->
       when 'tabs' then 'tabsFieldTemplate'
       when 'dateTime' then 'dateTimeFieldTemplate'
       when 'hrule' then 'hrFieldTemplate'
-      when 'xeditable' then 'xeditableFieldTemplate'
+      when 'richtext' then 'xeditableFieldTemplate'
       else 'staticFieldTemplate'
 
   if not this.size? and not this.inputType is 'hidden'
@@ -28,6 +28,8 @@ UI.registerHelper 'formField', () ->
   if this.inputType is 'checkbox'
       if this.value is 'checked'
         this.checked = 'checked'
+      else
+        this.checked = ''
 
   if this.inputType is 'staticDate'
     this.value = moment.unix(this.value).format("DD MMM YYYY HH:mm")
@@ -74,6 +76,11 @@ UI.registerHelper 'formField', () ->
       _countries.push _item
     this.values = _countries
 
+  if this.inputType is 'richtext'
+    if not this.height?
+      this.height = '300px'
+      console.warn "richtext height attribute not set. Using default of 300px."
+
   # select input type
   if this.inputType is 'select'
     new_items = []
@@ -95,7 +102,7 @@ UI.registerHelper 'formField', () ->
         option_label = item
       else if Object.isString(item)
         option_label = item.titleize()
-      
+
       if item._id?
         option_value = item._id
       else
@@ -107,7 +114,7 @@ UI.registerHelper 'formField', () ->
       _item =
         option_label: option_label
         option_value: option_value
-      
+
       if item._id? and this.value is item._id
         _item.checked = 'selected'
 
@@ -142,9 +149,6 @@ Template.xeditableFieldTemplate.rendered = ->
   #   "color": false        #//Button to change color of font
   #   placement: "auto top"
   # });
-
-
-
 
 Template.dateTimeFieldTemplate.rendered = ->
   datepicker = $("##{this.data.name}-picker")

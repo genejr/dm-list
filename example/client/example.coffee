@@ -56,7 +56,7 @@ Meteor.subscribe('countries')
 
       text:
         required: false
-        inputType: 'xeditable'
+        inputType: 'richtext'
         size: 12
 
     name: 'PersonAddEditForm'

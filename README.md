@@ -70,7 +70,15 @@ A horizontal rule added to the interface. You can name the field anything.
 		cssClass: 'Anything'
 ```
 
-#### xeditable
+#### richtext
+ - height - The height in pixels of the text entry box. Defaults to 300px.
+
+```
+  text:
+    required: false
+    size: 12
+    height: '400px'
+```
 
 
 

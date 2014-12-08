@@ -328,7 +328,7 @@ Template.listNav.helpers
       Template.listNav.events(navEvents)
     else
       Template.listNav.events(navEvents)
-    
+
     # console.log data.nav
     return data.nav
 
@@ -417,8 +417,7 @@ UI.registerHelper 'listRow', () ->
   return Template._listRow
 
 UI.registerHelper 'listRowColumn', () ->
-  # console.log 'listRowColumn', this
-  console.log 'listRowColumn: ', this
+  # console.log 'listRowColumn: ', this
   inputType = this.data.form.fields[this.field.name]?.inputType
 
   if this.field.transform and Object.isFunction(this.field.transform)
