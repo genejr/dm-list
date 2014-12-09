@@ -5,7 +5,7 @@ Package.describe({
   name: "digilord:list"
 });
 
-Package.on_use(function (api) {
+Package.onUse(function (api) {
 	api.versionsFrom('METEOR@0.9.0')
 	api.use('templating')
 	api.use('ui')
@@ -18,8 +18,8 @@ Package.on_use(function (api) {
 	api.use('tsega:bootstrap3-datetimepicker@0.2.0')
   api.use('mrt:bootstrap3-wysihtml5@0.3.3')
 
-  api.add_files(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server']);
-	api.add_files([
+  api.addFiles(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server']);
+	api.addFiles([
 		'client/userDataPopover.html',
 		'client/userDataPopover.coffee',
 		'client/controlButton.html',
