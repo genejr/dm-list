@@ -1,6 +1,8 @@
 digilord:list
 =======
 
+[![Code Climate](https://codeclimate.com/github/digilord/dm-list/badges/gpa.svg)](https://codeclimate.com/github/digilord/dm-list)
+
 A list item template that allows one to build a series of lists in a consistent manner.
 
 ## Why?
