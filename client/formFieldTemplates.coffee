@@ -101,7 +101,7 @@ UI.registerHelper 'formField', () ->
       if Object.isNumber(item)
         option_label = item
       else if Object.isString(item)
-        option_label = item.titleize()
+        option_label = item
 
       if item._id?
         option_value = item._id
