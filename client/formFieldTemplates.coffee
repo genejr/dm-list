@@ -168,6 +168,9 @@ UI.registerHelper 'printField', () ->
       when 'textarea' then 'printFieldTextareaTemplate'
       else 'printFieldTemplate'
 
+  if this.inputType is 'textarea'
+    this.value = new Spacebars.SafeString(this.value)
+
   if this.inputType is 'checkbox'
       if this.value is 'checked'
         this.checked = 'checked'

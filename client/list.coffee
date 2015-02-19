@@ -448,10 +448,10 @@ UI.registerHelper 'ListForm', () ->
       data = template.data.data
       element = $("##{data._id}")
       if element.hasClass('hidden')
-          $('.form-row').addClass('hidden')
-          element.removeClass('hidden')
-        else
-          element.addClass('hidden')
+        $('.form-row').addClass('hidden')
+        element.removeClass('hidden')
+      else
+        element.addClass('hidden')
         return false
 
     'click .show-created-updated': (event, template) ->
@@ -469,6 +469,7 @@ UI.registerHelper 'ListForm', () ->
       return false
 
   data = this.data
+  console.log data
   if data.context?.list?.form?
     form = data.context?.list?.form
     # console.log 'First else for ListForm.', form
