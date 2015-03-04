@@ -469,7 +469,7 @@ UI.registerHelper 'ListForm', () ->
       return false
 
   data = this.data
-  console.log data
+#  console.log data
   if data.context?.list?.form?
     form = data.context?.list?.form
     # console.log 'First else for ListForm.', form
@@ -508,11 +508,16 @@ UI.registerHelper 'ListForm', () ->
   if not Array.isArray(providedFields)
     for key in Object.keys(providedFields)
       options = providedFields[key]
+      _collection = {}
       # console.log options
       options.name = key
+      _belongsTo = data._id
+#      console.log 'Data: ', data
+      if data.context?.klass?
+        _collection = data.context.klass
       if options.transform and Object.isFunction(options.transform)
         transform = options.transform
-        options.value = transform(data[key])
+        options.value = transform(data[key], _collection, _belongsTo )
       else
         options.value = data[key]
 
