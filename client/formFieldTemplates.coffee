@@ -4,6 +4,7 @@ UI.registerHelper 'formField', () ->
 
   template =
     switch this.inputType
+      when 'autocomplete' then 'autocompleteFieldTemplate'
       when 'text' then 'textFieldTemplate'
       when 'textarea' then 'textAreaFieldTemplate'
       when 'password' then 'passwordFieldTemplate'
@@ -132,6 +133,9 @@ UI.registerHelper 'formField', () ->
     return Template[template]
   else
     return Template[template]
+
+Template.autocompleteFieldTemplate.rendered = ->
+  Meteor.typeahead.inject();
 
 Template.xeditableFieldTemplate.rendered = ->
   xeditable = $("##{this.data.name}-xeditable")

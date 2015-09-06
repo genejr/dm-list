@@ -1,3 +1,28 @@
+<template name="autocompleteFieldTemplate">
+	{{#if enableAutocomplete}}
+		<div class="form-group col-md-{{size}} dm-form-field">
+			<label for="{{name}}" class='control-label'>{{label}}<span id='{{name}}-error'></span></label>
+			<input
+				name="{{name}}"
+				class="form-control typeahead"
+				autocomplete="false"
+				spellcheck="off"
+				type="text"
+				value="{{value}}"
+				data-source="{{dataSource}}"
+				data-template="{{dataTemplate}}"
+				data-select="{{dataSelect}}"
+				data-autocomplete="{{dataAutocomplete}}"
+				data-change="{{dataChange}}"
+				data-open="{{dataOpen}}"
+				data-close="{{dataClose}}"
+			/>
+		</div>
+	{{else}}
+		{{> textFieldTemplate}}
+	{{/if}}
+</template>
+
 <template name="textFieldTemplate">
 	<div class="form-group col-md-{{size}} dm-form-field">
 		<label for="{{name}}" class='control-label'>{{label}} <span id='{{name}}-error'></span></label>

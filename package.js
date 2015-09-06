@@ -17,6 +17,7 @@ Package.onUse(function (api) {
 	api.use('mrt:moment@2.8.1')
 	api.use('tsega:bootstrap3-datetimepicker@0.2.0')
   api.use('mrt:bootstrap3-wysihtml5@0.3.3')
+  api.use('sergeyt:typeahead@0.11.1_3')
 
   api.addFiles(['lib/dm-utils.coffee', 'lib/callbacks.coffee'], ['client','server']);
 	api.addFiles([

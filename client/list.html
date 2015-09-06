@@ -72,7 +72,7 @@
       {{#each listFields}}
         {{#listRowColumn data=.. field=this}}{{/listRowColumn}}
       {{/each}}
-      <td class='text-center'>
+      <td class='text-center {{#unless _id}}hidden{{/unless}}'>
         {{#if status}}
           {{#each rowControls.disabled}}
             {{#control_button}}{{/control_button}}
@@ -90,7 +90,7 @@
       </td>
     </tr>
     {{#if inlineForm}}
-    <tr id='{{_id}}' class='hidden form-row'>
+    <tr id='{{_id}}' class='form-row {{#unless _id}}is-new{{else}}hidden{{/unless}}'>
       <td colspan='{{Count listFields}}'>
         {{#if editDocument}}
           {{#ListForm data=../data form=form}}{{/ListForm}}
@@ -119,8 +119,13 @@
       </div>
       {{else}}
       <div class='btn-toolbar col-md-12 text-center'>
-        <input type='submit' value='Save' class='btn btn-success'>
-        <input type='cancel' value='Undo Edits' class="close-form btn btn-danger">
+        {{#if _id}}
+          <input type='submit' value='Save' class='btn btn-success'>
+          <input type='cancel' value='Undo Edits' class="close-form btn btn-danger">
+        {{else}}
+          <input type='submit' value='Create New' class='btn btn-success'>
+          <input type='cancel' value='Cancel' class="cancel-create btn btn-danger">
+        {{/if}}
       </div>
       <!-- <input type='submit' value='Save' class='btn btn-success col-md-10 col-md-offset-1'> -->
       {{/if}}
@@ -139,4 +144,3 @@
     No users will be able to use this #{single}.  This could lead to a service interruption.
   </div>
 </template>
-

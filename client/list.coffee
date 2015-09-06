@@ -346,10 +346,12 @@ Template._listRow.helpers
 
   editDocument: ->
     _editId =  Session.get('editDocument')
-    # console.log 'EDIT!', _editId
-    if _editId is this._id
+
+    if _editId is this._id or !this._id
+      console.log 'editDocument', _editId, true
       return true
     else
+      console.log 'editDocument', _editId, false
       return false
 
 
