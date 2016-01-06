@@ -203,6 +203,7 @@ Template.listNav.helpers
         klass = context.klass
         console.log "You have not defined a custom add handler for #{data.title}.  Using the default."
         if Object.isFunction(context.nav.newItemCallback)
+          console.log "context", context
           _id = context.nav.newItemCallback(context.parent_id)
         else
           console.warn 'You have not defined a newItemCallback or new route for this package.'
